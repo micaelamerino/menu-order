@@ -1,0 +1,138 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: ubuntu;
+    src: url("/src/assets/fonts/ubuntu.ttf");
+    font-display: swap;
+}
+
+body,
+button,
+input {
+    font-family: ubuntu;
+}
+
+:root {
+    --gris: #e0e0e0;
+    --gris-oscuro: #797979;
+    --verde: #24b624;
+}
+
+nav {
+    background-color: var(--gris);
+    display: flex;
+    align-items: center;
+    border-bottom: 3px solid var(--verde);
+}
+
+nav>a {
+    padding: 15px 20px;
+}
+
+nav>a:hover {
+    background-color: var(--verde);
+    transition: .3s;
+}
+
+.logo {
+    color: var(--verde);
+    margin: 0 15px;
+}
+
+
+.products-section,
+.bills-section {
+    display: flex;
+    justify-content: center;
+}
+
+.list-section {
+    width: 60%;
+    padding: 1em;
+}
+
+/*Formularios*/
+.form-section {
+    width: 40%;
+    background-color: var(--gris);
+    height: 100vh;
+}
+
+.header-form {
+    background-color: #24b624;
+    color: #fff;
+    padding: 10px 15px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 1em;
+    width: 500px;
+
+}
+
+.form-content {
+    display: flex;
+
+}
+
+.form-content>label {
+    width: 30%;
+}
+
+.form-content>input {
+    width: 80%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid var(--gris-oscuro);
+    padding: 6px 8px;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+button {
+    width: 100px;
+    padding: 10px 0;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    border: 1px solid var(--gris);
+}
+
+button:hover {
+    border: 1px solid var(--gris-oscuro);
+    transition: .3s;
+}
+
+.btn-add {
+    background-color: #24b624;
+    color: #fff;
+}
+
+/*Tablas*/
+table {
+    border: 1px solid var(--gris);
+    width: 100%;
+    margin-top: 1em;
+}
+
+thead {
+    background-color: var(--gris);
+}
+
+th,
+td {
+    width: 25%;
+    text-align: left;
+    padding: 0.3em;
+}
