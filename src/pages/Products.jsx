@@ -1,7 +1,8 @@
-import { useRef, useState } from "react";
+import { useContext, useRef } from "react";
+import { ProductContext } from "../context/ProductContext";
 
 const Products = () => {
-  const [products, setProducts] = useState([]);
+  const { products, setProducts } = useContext(ProductContext);
   const form = useRef();
 
   const handleSubmit = (e) => {
@@ -33,7 +34,7 @@ const Products = () => {
                 <tr key={e.codigo}>
                   <td>{e.codigo}</td>
                   <td>{e.nombre}</td>
-                  <td>{e.precio}</td>
+                  <td>$ {e.precio}</td>
                 </tr>
               ))}
             </tbody>

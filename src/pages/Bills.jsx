@@ -1,8 +1,10 @@
 import { useRef, useState } from "react";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 const Bills = () => {
-  const [bills, setBills] = useState([]);
+  const [bills, setBills] = useLocalStorage("bills", [])
   const form = useRef();
+  let currentDate = new Date()
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,7 +36,7 @@ const Bills = () => {
                 <tr key={e.proveedor}>
                   <td>{e.fecha}</td>
                   <td>{e.proveedor}</td>
-                  <td>{e.monto}</td>
+                  <td>$ {e.monto}</td>
                   <td>{e.pago}</td>
                 </tr>
               ))}
