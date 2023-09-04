@@ -31,10 +31,10 @@ const Products = () => {
             </thead>
             <tbody>
               {products?.map((e) => (
-                <tr key={e.codigo}>
-                  <td>{e.codigo}</td>
-                  <td>{e.nombre}</td>
-                  <td>$ {e.precio}</td>
+                <tr key={e.code}>
+                  <td>{e.code}</td>
+                  <td>{e.name}</td>
+                  <td>$ {e.price}</td>
                 </tr>
               ))}
             </tbody>
@@ -47,16 +47,20 @@ const Products = () => {
         <h2 className="header-form">Ingresar producto</h2>
         <form ref={form} onSubmit={handleSubmit} className="form-container">
           <div className="form-content">
-            <label htmlFor="codigo">Código</label>
-            <input id="codigo" name="codigo" type="text" autoComplete="off" />
+            <label htmlFor="code">Código</label>
+            <input id="code" name="code" type="text" autoComplete="off" />
           </div>
           <div className="form-content">
-            <label htmlFor="nombre">Nombre</label>
-            <input id="nombre" name="nombre" type="text" autoComplete="off" />
+            <label htmlFor="name">Nombre</label>
+            <input id="name" name="name" type="text" autoComplete="off" />
           </div>
           <div className="form-content">
-            <label htmlFor="precio">Precio</label>
-            <input id="precio" name="precio" type="number" autoComplete="off" />
+            <label htmlFor="price">Precio</label>
+            <input id="price" name="price" type="number" autoComplete="off" />
+          </div>
+          <div className="form-content">
+            <label htmlFor="quantity">Cantidad</label>
+            <input id="quantity" name="quantity" type="number" autoComplete="off" />
           </div>
 
           <div className="buttons-container">
