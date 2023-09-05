@@ -52,7 +52,7 @@ const Order = () => {
       <section className="dataTables-section">
         <h2 className="header-form">Mesa</h2>
         <form ref={form} className="form-search">
-          <label>Nombre del producto</label>
+          <label>Nombre o código del producto</label>
           <input
             onChange={handleChange}
             type="text"
@@ -78,6 +78,7 @@ const Order = () => {
 
         <section className="order-client">
           <h3>Orden del cliente</h3>
+          
           {orderClient.length > 0 ? (
             orderClient?.map((e) => (
               <article key={e.code} className="order-article">

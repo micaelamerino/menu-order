@@ -174,7 +174,7 @@ td {
     padding: 1em;
     display: flex;
     flex-direction: column;
-    /* background-color: #797979; */
+    position: relative;
 }
 
 .form-search > input {
@@ -192,6 +192,8 @@ td {
     flex-direction: column;
     gap: 5px;
     width: 300px;
+    position: absolute;
+    top: 70px;
 }
 
 .content-list {
