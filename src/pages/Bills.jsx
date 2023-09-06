@@ -100,7 +100,9 @@ const Bills = () => {
               autoComplete="on"
             />
           </div>
-          {errors.date && <p>{errors.date}</p>}
+          <div className="error-message">
+            {errors.date && <p>{errors.date}</p>}
+          </div>
           <div className="form-content">
             <label htmlFor="distributor">Proveedor</label>
             <input
@@ -111,7 +113,9 @@ const Bills = () => {
               autoComplete="off"
             />
           </div>
-          {errors.distributor && <p>{errors.distributor}</p>}
+          <div className="error-message">
+            {errors.distributor && <p>{errors.distributor}</p>}
+          </div>
           <div className="form-content">
             <label htmlFor="amount">Monto</label>
             <input
@@ -122,7 +126,9 @@ const Bills = () => {
               autoComplete="off"
             />
           </div>
-          {errors.amount && <p>{errors.amount}</p>}
+          <div className="error-message">
+            {errors.amount && <p>{errors.amount}</p>}
+          </div>
           <div className="form-content">
             <label htmlFor="paid">Medio de pago</label>
             <input
@@ -133,7 +139,9 @@ const Bills = () => {
               autoComplete="off"
             />
           </div>
-          {errors.paid && <p>{errors.paid}</p>}
+          <div className="error-message">
+            {errors.paid && <p>{errors.paid}</p>}
+          </div>
           <div className="buttons-container">
             <button type="button" onClick={handleClickCancel}>
               Cancelar

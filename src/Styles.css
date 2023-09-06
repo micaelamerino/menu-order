@@ -46,7 +46,8 @@ nav>a:hover {
 
 
 .products-section,
-.bills-section, .order-section {
+.bills-section,
+.order-section {
     display: flex;
     justify-content: center;
 }
@@ -57,7 +58,8 @@ nav>a:hover {
 }
 
 /*Formularios*/
-.form-section, .dataTables-section {
+.form-section,
+.dataTables-section {
     width: 40%;
     background-color: var(--gris);
     height: 95vh;
@@ -80,6 +82,8 @@ nav>a:hover {
 
 .form-content {
     display: flex;
+    align-items: center;
+    margin-top: 8px;
 
 }
 
@@ -92,7 +96,7 @@ nav>a:hover {
     outline: none;
     border-radius: 5px;
     border: 1px solid var(--gris-oscuro);
-    padding: 6px 8px;
+    padding: 10px 8px;
 }
 
 .buttons-container {
@@ -118,6 +122,11 @@ button:hover {
 .btn-add {
     background-color: var(--verde);
     color: #fff;
+}
+
+.error-message {
+    color: red;
+    height: 5px;
 }
 
 /*Tablas*/
@@ -177,14 +186,13 @@ td {
     position: relative;
 }
 
-.form-search > input {
+.form-search>input {
     width: 300px;
     outline: none;
     border: none;
     padding: 8px;
     margin-top: 8px;
 }
-
 
 .products-list {
     background-color: #fff;
@@ -203,7 +211,7 @@ td {
     padding: 8px;
 }
 
-.content-list:hover{
+.content-list:hover {
     background-color: var(--gris);
 }
 

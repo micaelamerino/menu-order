@@ -98,7 +98,9 @@ const Products = () => {
               autoComplete="off"
             />
           </div>
-          {errors.code && <p>{errors.code}</p>}
+          <div className="error-message">
+            {errors.code && <p>{errors.code}</p>}
+          </div>
           <div className="form-content">
             <label htmlFor="name">Nombre</label>
             <input
@@ -109,7 +111,9 @@ const Products = () => {
               autoComplete="off"
             />
           </div>
-          {errors.name && <p>{errors.name}</p>}
+          <div className="error-message">
+            {errors.name && <p>{errors.name}</p>}
+          </div>
           <div className="form-content">
             <label htmlFor="price">Precio</label>
             <input
@@ -120,7 +124,9 @@ const Products = () => {
               autoComplete="off"
             />
           </div>
-          {errors.price && <p>{errors.price}</p>}
+          <div className="error-message">
+            {errors.price && <p>{errors.price}</p>}
+          </div>
           <div className="form-content">
             <label htmlFor="quantity">Cantidad</label>
             <input
@@ -131,8 +137,9 @@ const Products = () => {
               autoComplete="off"
             />
           </div>
-          {errors.quantity && <p>{errors.quantity}</p>}
-
+          <div className="error-message">
+            {errors.quantity && <p>{errors.quantity}</p>}
+          </div>
           <div className="buttons-container">
             <button type="button" onClick={handleClickCancel}>
               Cancelar
