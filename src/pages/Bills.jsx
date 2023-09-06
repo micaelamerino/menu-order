@@ -1,22 +1,17 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import useForm from "../hooks/useForm";
 
 const Bills = () => {
+  const [bills, setBills] = useLocalStorage("bills", []);
   const initialValue = {
     date: "",
     distributor: "",
     amount: "",
     paid: "",
   };
-  const [form, setForm] = useState(initialValue);
-  const [bills, setBills] = useLocalStorage("bills", []);
+  const { form, setForm, handleChange, formulario } = useForm(initialValue);
   const [errors, setErrors] = useState({});
-  const formulario = useRef();
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,7 +20,7 @@ const Bills = () => {
       setBills([...bills, form]);
       formulario.current.reset();
       setForm(initialValue);
-      setErrors({})
+      setErrors({});
     } else {
       setErrors(err);
     }
@@ -33,7 +28,7 @@ const Bills = () => {
 
   const handleClickCancel = () => {
     formulario.current.reset();
-    setErrors({})
+    setErrors({});
   };
 
   const validateFields = (value) => {

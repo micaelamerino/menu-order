@@ -1,21 +1,59 @@
-import { useContext, useRef } from "react";
+import { useContext, useState } from "react";
 import { ProductContext } from "../context/ProductContext";
+import useForm from "../hooks/useForm";
 
 const Products = () => {
   const { products, setProducts } = useContext(ProductContext);
-  const form = useRef();
+  const initialValue = {
+    code: "",
+    name: "",
+    price: "",
+    quantity: "",
+  };
+  const { form, setForm, handleChange, formulario } = useForm(initialValue);
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const fieldsData = Object.fromEntries(new FormData(e.target));
-    setProducts([...products, fieldsData]);
-    form.current.reset();
+    const err = validateFields(form);
+    if (err === null) {
+      setProducts([...products, form]);
+      formulario.current.reset();
+      setForm(initialValue);
+      setErrors({});
+    } else {
+      setErrors(err);
+    }
   };
 
-  const handleClick = () => {
-    form.current.reset();
+  const handleClickCancel = () => {
+    formulario.current.reset();
+    setErrors({});
   };
 
+  const validateFields = (value) => {
+    let errors = {};
+    let isError = false;
+
+    if (value.code.length <= 0) {
+      errors.code = "Debe completar el campo";
+      isError = true;
+    }
+    if (value.name.length <= 0) {
+      errors.name = "Debe completar el campo";
+      isError = true;
+    }
+    if (value.price.length <= 0) {
+      errors.price = "Debe completar el campo";
+      isError = true;
+    }
+    if (value.quantity.length <= 0) {
+      errors.quantity = "Debe completar el campo";
+      isError = true;
+    }
+
+    return isError ? errors : null;
+  };
   return (
     <main className="products-section">
       <section className="list-section">
@@ -45,26 +83,58 @@ const Products = () => {
       </section>
       <section className="form-section">
         <h2 className="header-form">Ingresar producto</h2>
-        <form ref={form} onSubmit={handleSubmit} className="form-container">
+        <form
+          ref={formulario}
+          onSubmit={handleSubmit}
+          className="form-container"
+        >
           <div className="form-content">
             <label htmlFor="code">Código</label>
-            <input id="code" name="code" type="text" autoComplete="off" />
+            <input
+              onChange={handleChange}
+              id="code"
+              name="code"
+              type="text"
+              autoComplete="off"
+            />
           </div>
+          {errors.code && <p>{errors.code}</p>}
           <div className="form-content">
             <label htmlFor="name">Nombre</label>
-            <input id="name" name="name" type="text" autoComplete="off" />
+            <input
+              onChange={handleChange}
+              id="name"
+              name="name"
+              type="text"
+              autoComplete="off"
+            />
           </div>
+          {errors.name && <p>{errors.name}</p>}
           <div className="form-content">
             <label htmlFor="price">Precio</label>
-            <input id="price" name="price" type="number" autoComplete="off" />
+            <input
+              onChange={handleChange}
+              id="price"
+              name="price"
+              type="number"
+              autoComplete="off"
+            />
           </div>
+          {errors.price && <p>{errors.price}</p>}
           <div className="form-content">
             <label htmlFor="quantity">Cantidad</label>
-            <input id="quantity" name="quantity" type="number" autoComplete="off" />
+            <input
+              onChange={handleChange}
+              id="quantity"
+              name="quantity"
+              type="number"
+              autoComplete="off"
+            />
           </div>
+          {errors.quantity && <p>{errors.quantity}</p>}
 
           <div className="buttons-container">
-            <button type="button" onClick={handleClick}>
+            <button type="button" onClick={handleClickCancel}>
               Cancelar
             </button>
             <button type="submit" className="btn-add">
