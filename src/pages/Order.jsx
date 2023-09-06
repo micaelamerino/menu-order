@@ -1,12 +1,15 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { ProductContext } from "../context/ProductContext";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 const Order = () => {
   const { products } = useContext(ProductContext);
-  let tables = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const [tablesOpen, setTablesOpen] = useLocalStorage("tablesOpen", []);
+  const tables = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const [search, setSearch] = useState("");
   const [filterProducts, setFilterProducts] = useState([]);
   const [orderClient, setOrderClient] = useState([]);
+  const [numberTable, setNumberTable] = useState("");
   const form = useRef();
 
   const handleChange = (e) => {
@@ -40,20 +43,38 @@ const Order = () => {
     const newOrder = orderClient.filter((p) => p != searchID);
     setOrderClient(newOrder);
   };
+
+  const handleClickTable = (e) => {
+    const searchID = tablesOpen.find((table) => table.code == e);
+
+    if (!searchID) {
+      setNumberTable(e);
+      setOrderClient([]);
+    } else {
+      setNumberTable(searchID.code);
+      setOrderClient(searchID.order);
+    }
+  };
+
+  const handleClickSave = () => {
+    setTablesOpen([...tablesOpen, { code: numberTable, order: orderClient }]);
+  };
+
   return (
     <main className="order-section">
       <section className="tables-section">
         {tables.map((e) => (
-          <div key={e} className="table">
+          <div onClick={() => handleClickTable(e)} key={e} className="table">
             <span>{e}</span>
           </div>
         ))}
       </section>
       <section className="dataTables-section">
-        <h2 className="header-form">Mesa</h2>
+        <h2 className="header-form">Mesa {numberTable}</h2>
         <form ref={form} className="form-search">
-          <label>Nombre o código del producto</label>
+          <label htmlFor="search">Nombre o código del producto</label>
           <input
+            id="search"
             onChange={handleChange}
             type="text"
             placeholder="Buscar..."
@@ -78,23 +99,32 @@ const Order = () => {
 
         <section className="order-client">
           <h3>Orden del cliente</h3>
-          
+
           {orderClient.length > 0 ? (
-            orderClient?.map((e) => (
-              <article key={e.code} className="order-article">
-                <p>{e.quantity}</p>
-                <p>
-                  <b>{e.name}</b>
-                </p>
-                <p>$ {e.price}</p>
-                <button
-                  onClick={() => handleClickDelete(e)}
-                  className="btn-delete"
-                >
-                  X
+            <div>
+              <div>
+                {orderClient?.map((e, i) => (
+                  <article key={i} className="order-article">
+                    <p>{e.quantity}</p>
+                    <p>
+                      <b>{e.name}</b>
+                    </p>
+                    <p>$ {e.price}</p>
+                    <button
+                      onClick={() => handleClickDelete(e)}
+                      className="btn-delete"
+                    >
+                      X
+                    </button>
+                  </article>
+                ))}
+              </div>
+              <div>
+                <button onClick={handleClickSave} className="btn-add">
+                  Guardar
                 </button>
-              </article>
-            ))
+              </div>
+            </div>
           ) : (
             <p>Aún no hay productos ingresados</p>
           )}

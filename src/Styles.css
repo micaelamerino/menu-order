@@ -112,6 +112,7 @@ button {
     border-radius: 5px;
     border: none;
     border: 1px solid var(--gris);
+    margin-top: 5px;
 }
 
 button:hover {

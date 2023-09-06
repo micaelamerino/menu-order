@@ -47,7 +47,7 @@ const Products = () => {
       errors.price = "Debe completar el campo";
       isError = true;
     }
-    if (value.quantity.length <= 0) {
+    if (!value.quantity.trim()) {
       errors.quantity = "Debe completar el campo";
       isError = true;
     }
@@ -64,6 +64,7 @@ const Products = () => {
               <tr>
                 <th>Código</th>
                 <th>Nombre</th>
+                <th>Cantidad</th>
                 <th>Precio</th>
               </tr>
             </thead>
@@ -72,6 +73,7 @@ const Products = () => {
                 <tr key={e.code}>
                   <td>{e.code}</td>
                   <td>{e.name}</td>
+                  <td>{e.quantity}</td>
                   <td>$ {e.price}</td>
                 </tr>
               ))}
@@ -96,6 +98,7 @@ const Products = () => {
               name="code"
               type="text"
               autoComplete="off"
+              autoFocus
             />
           </div>
           <div className="error-message">
