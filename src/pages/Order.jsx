@@ -69,7 +69,7 @@ const Order = () => {
           </div>
         ))}
       </section>
-      <section className="dataTables-section">
+      <section className="form-section">
         <h2 className="header-form">Mesa {numberTable}</h2>
         <form ref={form} className="form-search">
           <label htmlFor="search">Nombre o código del producto</label>
@@ -86,7 +86,7 @@ const Order = () => {
                 <div
                   onClick={() => handleClickAdd(e)}
                   key={e.code}
-                  className="content-list"
+                  className="container-products-list"
                 >
                   <p>
                     <b>{e.code}</b>
@@ -97,11 +97,11 @@ const Order = () => {
           </section>
         </form>
 
-        <section className="order-client">
+        <section className="client-order-section">
           <h3>Orden del cliente</h3>
 
           {orderClient.length > 0 ? (
-            <div>
+            <div className="order-container">
               <div>
                 {orderClient?.map((e, i) => (
                   <article key={i} className="order-article">

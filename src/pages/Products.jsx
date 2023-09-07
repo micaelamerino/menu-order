@@ -47,7 +47,7 @@ const Products = () => {
       errors.price = "Debe completar el campo";
       isError = true;
     }
-    if (!value.quantity.trim()) {
+    if (value.quantity.length <= 0) {
       errors.quantity = "Debe completar el campo";
       isError = true;
     }

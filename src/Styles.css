@@ -23,6 +23,15 @@ input {
     --naranja: #fd9800;
 }
 
+button {
+    width: 100px;
+    padding: 10px 0;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid var(--gris);
+    margin-top: 5px;
+}
+
 nav {
     background-color: var(--gris);
     display: flex;
@@ -31,7 +40,7 @@ nav {
 }
 
 nav>a {
-    padding: 15px 20px;
+    padding: 20px;
 }
 
 nav>a:hover {
@@ -41,9 +50,8 @@ nav>a:hover {
 
 .logo {
     color: var(--verde);
-    margin: 0 15px;
+    margin: 0 1em;
 }
-
 
 .products-section,
 .bills-section,
@@ -52,107 +60,18 @@ nav>a:hover {
     justify-content: center;
 }
 
-.list-section {
+.list-section,
+.tables-section {
     width: 60%;
     padding: 1em;
 }
 
-/*Formularios*/
-.form-section,
-.dataTables-section {
+.form-section {
     width: 40%;
     background-color: var(--gris);
     height: 95vh;
 }
 
-.header-form {
-    background-color: var(--verde);
-    color: #fff;
-    padding: 10px 15px;
-}
-
-.form-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    padding: 1em;
-    width: 500px;
-
-}
-
-.form-content {
-    display: flex;
-    align-items: center;
-    margin-top: 8px;
-
-}
-
-.form-content>label {
-    width: 30%;
-}
-
-.form-content>input {
-    width: 80%;
-    outline: none;
-    border-radius: 5px;
-    border: 1px solid var(--gris-oscuro);
-    padding: 10px 8px;
-}
-
-.buttons-container {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-}
-
-button {
-    width: 100px;
-    padding: 10px 0;
-    cursor: pointer;
-    border-radius: 5px;
-    border: none;
-    border: 1px solid var(--gris);
-    margin-top: 5px;
-}
-
-button:hover {
-    border: 1px solid var(--gris-oscuro);
-    transition: .3s;
-}
-
-.btn-add {
-    background-color: var(--verde);
-    color: #fff;
-}
-
-.error-message {
-    color: red;
-    height: 5px;
-}
-
-/*Tablas*/
-.tables-section {
-    width: 60%;
-}
-
-table {
-    border: 1px solid var(--gris);
-    width: 100%;
-    margin-top: 1em;
-}
-
-thead {
-    background-color: var(--gris);
-}
-
-th,
-td {
-    width: 25%;
-    text-align: left;
-    padding: 0.5em;
-}
-
-/*Salón*/
 .tables-section {
     display: grid;
     grid-template-columns: repeat(3, 250px);
@@ -191,8 +110,8 @@ td {
     width: 300px;
     outline: none;
     border: none;
-    padding: 8px;
-    margin-top: 8px;
+    padding: 0.8em;
+    margin-top: 0.8em;
 }
 
 .products-list {
@@ -202,28 +121,33 @@ td {
     gap: 5px;
     width: 300px;
     position: absolute;
-    top: 70px;
+    top: 80px;
+    border-top: 1px solid black;
 }
 
-.content-list {
+.container-products-list {
     display: flex;
-    gap: 8px;
+    gap: 0.6em;
     cursor: pointer;
-    padding: 8px;
+    padding: 0.6em;
 }
 
-.content-list:hover {
+.container-products-list:hover {
     background-color: var(--gris);
 }
 
-.order-client {
+.client-order-section {
     margin: 1em;
+}
+
+.order-container {
+    margin-top: 0.8em;
 }
 
 .order-article {
     display: grid;
     grid-template-columns: repeat(4, 150px);
-    padding: 5px;
+    padding: 0.3em;
 }
 
 .btn-delete {
@@ -233,4 +157,76 @@ td {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.header-form {
+    background-color: var(--verde);
+    color: #fff;
+    padding: 0.75em 1em;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 1em;
+    width: 500px;
+
+}
+
+.form-content {
+    display: flex;
+    align-items: center;
+    margin-top: 0.6em;
+
+}
+
+.form-content>label {
+    width: 30%;
+}
+
+.form-content>input {
+    width: 70%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid var(--gris-oscuro);
+    padding: 0.75em 0.6em;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 0.6em;
+}
+
+button:hover {
+    border: 1px solid var(--gris-oscuro);
+    transition: .3s;
+}
+
+.btn-add {
+    background-color: var(--verde);
+    color: #fff;
+}
+
+.error-message {
+    color: red;
+    height: 0.3em;
+}
+
+table {
+    border: 1px solid var(--gris);
+    width: 100%;
+    margin-top: 1em;
+}
+
+thead {
+    background-color: var(--gris);
+}
+
+th,
+td {
+    width: 25%;
+    text-align: left;
+    padding: 0.5em;
 }
