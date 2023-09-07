@@ -55,7 +55,8 @@ nav>a:hover {
 
 .products-section,
 .bills-section,
-.order-section {
+.order-section,
+.sales-section {
     display: flex;
     justify-content: center;
 }
@@ -64,6 +65,9 @@ nav>a:hover {
 .tables-section {
     width: 60%;
     padding: 1em;
+    max-height: 90vh;
+    overflow-y: scroll;
+
 }
 
 .form-section {

@@ -4,15 +4,10 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 export const ProductContext = createContext();
 
 const DataProducts = ({ children }) => {
-
-  const [products, setProducts] = useLocalStorage("products", [])
+  const [products, setProducts] = useLocalStorage("products", []);
 
   return (
-    <ProductContext.Provider
-      value={{
-        products, setProducts
-      }}
-    >
+    <ProductContext.Provider value={{ products, setProducts }}>
       {children}
     </ProductContext.Provider>
   );

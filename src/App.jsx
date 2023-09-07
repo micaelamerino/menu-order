@@ -1,16 +1,17 @@
-import DataProducts from './context/ProductContext'
-import Routing from './routes/Routing'
-
+import DataProducts from "./context/ProductContext";
+import TablesData from "./context/TablesContext";
+import Routing from "./routes/Routing";
 
 function App() {
-
   return (
     <>
-    <DataProducts>
-      <Routing/>
-    </DataProducts>
+      <DataProducts>
+        <TablesData>
+          <Routing />
+        </TablesData>
+      </DataProducts>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

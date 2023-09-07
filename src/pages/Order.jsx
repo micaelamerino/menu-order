@@ -1,10 +1,10 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { ProductContext } from "../context/ProductContext";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import { TablesContext } from "../context/TablesContext";
 
 const Order = () => {
   const { products } = useContext(ProductContext);
-  const [tablesOpen, setTablesOpen] = useLocalStorage("tablesOpen", []);
+  const {tablesOpen, setTablesOpen} = useContext(TablesContext);
   const tables = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const [search, setSearch] = useState("");
   const [filterProducts, setFilterProducts] = useState([]);
@@ -45,7 +45,7 @@ const Order = () => {
   };
 
   const handleClickTable = (e) => {
-    const searchID = tablesOpen.find((table) => table.code == e);
+    const searchID = tablesOpen.find((table) => table.code === e);
 
     if (!searchID) {
       setNumberTable(e);
