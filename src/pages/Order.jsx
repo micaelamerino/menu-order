@@ -32,7 +32,7 @@ const Order = () => {
     }
   }, [search, products]);
 
-  const handleClickAdd = (e) => {
+  const handleClickAddProduct = (e) => {
     setOrderClient([...orderClient, e]);
     setSearch("");
     form.current.reset();
@@ -53,6 +53,7 @@ const Order = () => {
     } else {
       setNumberTable(searchID.code);
       setOrderClient(searchID.order);
+      
     }
   };
 
@@ -84,7 +85,7 @@ const Order = () => {
             {filterProducts.length > 0 &&
               filterProducts?.map((e) => (
                 <div
-                  onClick={() => handleClickAdd(e)}
+                  onClick={() => handleClickAddProduct(e)}
                   key={e.code}
                   className="container-products-list"
                 >

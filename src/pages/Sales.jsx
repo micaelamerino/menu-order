@@ -8,7 +8,6 @@ const Sales = () => {
   useEffect(() => {
     setSales([...tablesOpen]);
   }, [tablesOpen]);
-  console.log(sales);
 
   return (
     <main className="sales-section">
