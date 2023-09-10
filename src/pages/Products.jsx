@@ -60,7 +60,7 @@ const Products = () => {
       <section className="list-section">
         <h2>PRODUCTOS</h2>
         {products.length > 0 ? (
-          <table>
+           <table>
             <thead>
               <tr>
                 <th>Código</th>
@@ -79,7 +79,7 @@ const Products = () => {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table> 
         ) : (
           <p>Aún no hay productos registrados</p>
         )}

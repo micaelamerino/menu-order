@@ -65,7 +65,7 @@ nav>a:hover {
 .tables-section {
     width: 60%;
     padding: 1em;
-    max-height: 90vh;
+    max-height: 91vh;
     overflow-y: scroll;
 
 }
@@ -73,7 +73,7 @@ nav>a:hover {
 .form-section {
     width: 40%;
     background-color: var(--gris);
-    height: 95vh;
+    height: 91vh;
 }
 
 .tables-section {
@@ -233,4 +233,13 @@ td {
     width: 25%;
     text-align: left;
     padding: 0.5em;
+}
+
+.selected-table {
+    display: grid;
+    place-content: center;
+}
+.selected-table > p {
+    border: 1px solid black;
+    padding: 0.6em;
 }

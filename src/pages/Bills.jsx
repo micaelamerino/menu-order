@@ -146,6 +146,12 @@ const Bills = () => {
           <div className="buttons-container">
             <CustomButton click={handleClickCancel} text={"Cancelar"}/>
             <CustomButton selector={"btn-add"} text={"Añadir"}/>
+            {/* <button type="button" onClick={handleClickCancel}>
+              Cancelar
+            </button> */}
+            {/* <button type="submit" className="btn-add">
+              Añadir
+            </button> */}
           </div>
         </form>
       </section>
