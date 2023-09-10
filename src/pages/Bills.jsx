@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import useForm from "../hooks/useForm";
+import CustomButton from "../components/CustomButton";
 
 const Bills = () => {
   const [bills, setBills] = useLocalStorage("bills", []);
@@ -143,12 +144,8 @@ const Bills = () => {
             {errors.paid && <p>{errors.paid}</p>}
           </div>
           <div className="buttons-container">
-            <button type="button" onClick={handleClickCancel}>
-              Cancelar
-            </button>
-            <button type="submit" className="btn-add">
-              Añadir
-            </button>
+            <CustomButton click={handleClickCancel} text={"Cancelar"}/>
+            <CustomButton selector={"btn-add"} text={"Añadir"}/>
           </div>
         </form>
       </section>

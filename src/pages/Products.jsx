@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { ProductContext } from "../context/ProductContext";
 import useForm from "../hooks/useForm";
+import CustomButton from "../components/CustomButton";
 
 const Products = () => {
   const { products, setProducts } = useContext(ProductContext);
@@ -144,12 +145,8 @@ const Products = () => {
             {errors.quantity && <p>{errors.quantity}</p>}
           </div>
           <div className="buttons-container">
-            <button type="button" onClick={handleClickCancel}>
-              Cancelar
-            </button>
-            <button type="submit" className="btn-add">
-              Añadir
-            </button>
+            <CustomButton click={handleClickCancel} text={"Cancelar"} />
+            <CustomButton selector={"btn-add"} text={"Añadir"} />
           </div>
         </form>
       </section>

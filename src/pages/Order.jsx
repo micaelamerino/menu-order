@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { ProductContext } from "../context/ProductContext";
 import { TablesContext } from "../context/TablesContext";
+import CustomButton from "../components/CustomButton";
 
 const Order = () => {
   const { products } = useContext(ProductContext);
@@ -64,12 +65,15 @@ const Order = () => {
   return (
     <main className="order-section">
       <section className="tables-section">
-        {tables.map((e) => (
-          <div onClick={() => handleClickTable(e)} key={e} className="table">
-            <span>{e}</span>
-          </div>
-        ))}
+        {
+        tables.map((table) => (
+          (tablesOpen.find((e)=> e.code === table)) 
+          ?
+        <button onClick={() => handleClickTable(table)} key={table} className="table" style={{backgroundColor:"#fd9800"}}>{table}</button>
+         : 
+         <button onClick={() => handleClickTable(table)} key={table} className="table" style={{backgroundColor:"#24b624"}}>{table}</button>))}
       </section>
+
       <section className="form-section">
         <h2 className="header-form">Mesa {numberTable}</h2>
         <form ref={form} className="form-search">
@@ -121,9 +125,7 @@ const Order = () => {
                 ))}
               </div>
               <div>
-                <button onClick={handleClickSave} className="btn-add">
-                  Guardar
-                </button>
+                <CustomButton selector={"btn-add"} click={handleClickSave} text={"Guardar"}/>
               </div>
             </div>
           ) : (
