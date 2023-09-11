@@ -145,8 +145,8 @@ const Products = () => {
             {errors.quantity && <p>{errors.quantity}</p>}
           </div>
           <div className="buttons-container">
-            <CustomButton click={handleClickCancel} text={"Cancelar"} />
-            <CustomButton selector={"btn-add"} text={"Añadir"} />
+            <CustomButton click={handleClickCancel} selector={"btn-gray"} text={"Cancelar"} />
+            <CustomButton selector={"btn-green"} text={"Añadir"} />
           </div>
         </form>
       </section>

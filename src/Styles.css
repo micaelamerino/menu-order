@@ -23,15 +23,6 @@ input {
     --naranja: #fd9800;
 }
 
-button {
-    width: 100px;
-    padding: 10px 0;
-    cursor: pointer;
-    border-radius: 5px;
-    border: 1px solid var(--gris);
-    margin-top: 5px;
-}
-
 nav {
     background-color: var(--gris);
     display: flex;
@@ -197,18 +188,32 @@ nav>a:hover {
     padding: 0.75em 0.6em;
 }
 
+button {
+    width: 125px;
+    padding: 10px 0;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid var(--gris);
+    margin-top: 5px;
+    font-size: 1rem;
+}
+
 .buttons-container {
     display: flex;
-    justify-content: center;
     gap: 0.6em;
 }
 
 button:hover {
-    border: 1px solid var(--gris-oscuro);
+    border: 1px solid #000;
     transition: .3s;
 }
 
-.btn-add {
+.btn-gray {
+    background-color: var(--gris-oscuro);
+    color: #fff;
+}
+
+.btn-green {
     background-color: var(--verde);
     color: #fff;
 }
@@ -239,7 +244,8 @@ td {
     display: grid;
     place-content: center;
 }
-.selected-table > p {
+
+.selected-table>p {
     border: 1px solid black;
     padding: 0.6em;
 }

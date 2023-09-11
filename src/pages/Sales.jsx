@@ -13,11 +13,15 @@ const Sales = () => {
     <main className="sales-section">
       <section className="list-section">
         <h2>VENTAS</h2>
-        <div>
-          <p>Monto total de ventas:</p>
-          <p>Promedio de venta por persona:</p>
-        </div>
+        
         {sales.length > 0 ? (
+          <>
+          <div>
+          <p>Personas:</p>
+          <p>Promedio por persona:</p>
+          <p>Promedio por venta:</p>
+          <p>Total:</p>
+        </div>
           <table>
             <thead>
               <tr>
@@ -38,6 +42,7 @@ const Sales = () => {
               ))}
             </tbody>
           </table>
+          </>
         ) : (
           <p>Aún no hay ventas registrados</p>
         )}

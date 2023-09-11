@@ -144,14 +144,8 @@ const Bills = () => {
             {errors.paid && <p>{errors.paid}</p>}
           </div>
           <div className="buttons-container">
-            <CustomButton click={handleClickCancel} text={"Cancelar"}/>
-            <CustomButton selector={"btn-add"} text={"Añadir"}/>
-            {/* <button type="button" onClick={handleClickCancel}>
-              Cancelar
-            </button> */}
-            {/* <button type="submit" className="btn-add">
-              Añadir
-            </button> */}
+            <CustomButton click={handleClickCancel} selector={"btn-gray"} text={"Cancelar"}/>
+            <CustomButton selector={"btn-green"} text={"Añadir"}/>
           </div>
         </form>
       </section>

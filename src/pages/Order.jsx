@@ -12,6 +12,7 @@ const Order = () => {
   const [filterProducts, setFilterProducts] = useState([]);
   const [orderClient, setOrderClient] = useState([]);
   const [numberTable, setNumberTable] = useState("");
+  const [addProducts, setAddProducts] = useState(null);
   const form = useRef();
 
   useEffect(() => {
@@ -20,6 +21,7 @@ const Order = () => {
 
   const handleChange = (e) => {
     setSearch(e.target.value);
+    setAddProducts(true);
   };
 
   useEffect(() => {
@@ -64,7 +66,17 @@ const Order = () => {
   };
 
   const handleClickSave = () => {
-    setTablesOpen([...tablesOpen, { code: numberTable, order: orderClient }]);
+    const searchTable = tablesOpen.find((table) => table.code === numberTable);
+    if (!searchTable) {
+      setTablesOpen([...tablesOpen, { code: numberTable, order: orderClient }]);
+    } else {
+      tablesOpen.map((table) => {
+        if (table.code === numberTable) {
+          table.order = orderClient;
+        }
+      });
+    }
+    setAddProducts(false);
   };
 
   return (
@@ -145,12 +157,25 @@ const Order = () => {
                         </article>
                       ))}
                     </div>
-                    <div>
-                      <CustomButton
-                        selector={"btn-add"}
-                        click={handleClickSave}
-                        text={"Guardar"}
-                      />
+                    <div className="buttons-container">
+                      {!addProducts ? (
+                        <CustomButton
+                          text={"Cerrar mesa"}
+                          selector={"btn-gray"}
+                        />
+                      ) : (
+                        <>
+                          <CustomButton
+                            text={"Cancelar"}
+                            selector={"btn-gray"}
+                          />
+                          <CustomButton
+                            selector={"btn-green"}
+                            click={handleClickSave}
+                            text={"Guardar"}
+                          />
+                        </>
+                      )}
                     </div>
                   </div>
                 ) : (
