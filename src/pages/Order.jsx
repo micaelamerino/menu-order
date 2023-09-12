@@ -6,7 +6,8 @@ import CustomButton from "../components/CustomButton";
 const Order = () => {
   const [firstInstance, setFirstInstance] = useState(null);
   const { products } = useContext(ProductContext);
-  const { tablesOpen, setTablesOpen, sales, setSales } = useContext(TablesContext);
+  const { tablesOpen, setTablesOpen, sales, setSales } =
+    useContext(TablesContext);
   const tables = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const [search, setSearch] = useState("");
   const [filterProducts, setFilterProducts] = useState([]);
@@ -66,19 +67,16 @@ const Order = () => {
   };
 
   const handleClickSave = () => {
-    const date = new Date()
-    const day = date.getDay()
-    const month = date.getMonth()
-    const year = date.getFullYear()
-    const hours = date.getHours()
-    const minutes = date.getMinutes()
-    const today =`${day}-${month}-${year} ${hours}:${minutes}`
-    
+    const date = new Date();
+    const today = date.toLocaleString();
 
     const searchTable = tablesOpen.find((table) => table.code === numberTable);
 
     if (!searchTable) {
-      setTablesOpen([...tablesOpen, { code: numberTable, order: orderClient, date:today }]);
+      setTablesOpen([
+        ...tablesOpen,
+        { code: numberTable, order: orderClient, startDate: today, finishDate:"" },
+      ]);
     } else {
       tablesOpen.map((table) => {
         if (table.code === numberTable) {
@@ -96,11 +94,23 @@ const Order = () => {
   };
 
   const handleClickCloseTable = () => {
+    const date = new Date();
+    const today = date.toLocaleString();
+
     const searchTable = tablesOpen.find((table) => table.code === numberTable);
-    const filterTable = tablesOpen.filter((tables) => tables !== searchTable);
-    setSales([...sales, searchTable])
-    setTablesOpen(filterTable);
-    setOrderClient([]);
+    if (searchTable) {
+      tablesOpen.map((table) => {
+        if(table.code === numberTable){
+          table.finishDate = today
+        }
+      })
+      
+      setSales([...sales, searchTable]);
+      const filterTable = tablesOpen.filter((tables) => tables !== searchTable);
+
+      setTablesOpen(filterTable);
+      setOrderClient([]);
+    }
   };
 
   return (

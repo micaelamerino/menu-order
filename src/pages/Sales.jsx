@@ -20,7 +20,8 @@ const Sales = () => {
               <thead>
                 <tr>
                   <th>Mesa</th>
-                  <th>Fecha</th>
+                  <th>Apertura</th>
+                  <th>Cierre</th>
                   <th>Monto</th>
                   <th>Medio de pago</th>
                 </tr>
@@ -29,7 +30,8 @@ const Sales = () => {
                 {sales?.map((sale, index) => (
                   <tr key={index}>
                     <td>{sale.code}</td>
-                    <td>{sale.date}</td>
+                    <td>{sale.startDate}</td>
+                    <td>{sale.finishDate}</td>
                     <td>$ {}</td>
                     <td>{}</td>
                   </tr>
