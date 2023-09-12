@@ -5,8 +5,12 @@ export const TablesContext = createContext();
 
 const TablesData = ({ children }) => {
   const [tablesOpen, setTablesOpen] = useLocalStorage("tablesOpen", []);
+  const [sales, setSales] = useLocalStorage("sales", []);
+  
   return (
-    <TablesContext.Provider value={{ tablesOpen, setTablesOpen }}>
+    <TablesContext.Provider
+      value={{ tablesOpen, setTablesOpen, sales, setSales }}
+    >
       {children}
     </TablesContext.Provider>
   );

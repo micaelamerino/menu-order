@@ -203,10 +203,6 @@ button {
     gap: 0.6em;
 }
 
-button:hover {
-    border: 1px solid #000;
-    transition: .3s;
-}
 
 .btn-gray {
     background-color: var(--gris-oscuro);
@@ -216,6 +212,12 @@ button:hover {
 .btn-green {
     background-color: var(--verde);
     color: #fff;
+}
+
+.btn-gray:hover,
+.btn-green:hover {
+    border: 1px solid #000;
+    transition: .3s;
 }
 
 .error-message {
