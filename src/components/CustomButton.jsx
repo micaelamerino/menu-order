@@ -1,7 +1,7 @@
 
-const CustomButton = ({selector, click, text}) => {
+const CustomButton = ({nameType, selector, click, text}) => {
   return (
-    <button className={selector} onClick={click}>{text}</button>
+    <button type={nameType} className={selector} onClick={click}>{text}</button>
   )
 }
 

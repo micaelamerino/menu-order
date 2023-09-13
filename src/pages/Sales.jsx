@@ -32,7 +32,7 @@ const Sales = () => {
                     <td>{sale.code}</td>
                     <td>{sale.startDate}</td>
                     <td>{sale.finishDate}</td>
-                    <td>$ {}</td>
+                    <td>$ {sale.total}</td>
                     <td>{}</td>
                   </tr>
                 ))}

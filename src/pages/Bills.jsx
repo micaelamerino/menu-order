@@ -73,9 +73,9 @@ const Bills = () => {
               {bills?.map((e, i) => (
                 <tr key={i}>
                   <td>{e.date}</td>
-                  <td>{e.distributor}</td>
+                  <td>{e.distributor.slice(0,1).toUpperCase()+e.distributor.substring(1).toLowerCase()}</td>
                   <td>$ {e.amount}</td>
-                  <td>{e.paid}</td>
+                  <td>{e.paid.slice(0,1).toUpperCase()+e.paid.substring(1).toLowerCase()}</td>
                 </tr>
               ))}
             </tbody>
@@ -144,8 +144,13 @@ const Bills = () => {
             {errors.paid && <p>{errors.paid}</p>}
           </div>
           <div className="buttons-container">
-            <CustomButton click={handleClickCancel} selector={"btn-gray"} text={"Cancelar"}/>
-            <CustomButton selector={"btn-green"} text={"Añadir"}/>
+            <CustomButton
+              nameType={"button"}
+              selector={"btn-gray"}
+              click={handleClickCancel}
+              text={"Cancelar"}
+            />
+            <CustomButton nameType={"submit"} selector={"btn-green"} text={"Añadir"} />
           </div>
         </form>
       </section>

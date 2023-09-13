@@ -14,6 +14,7 @@ const Order = () => {
   const [orderClient, setOrderClient] = useState([]);
   const [numberTable, setNumberTable] = useState("");
   const [addProducts, setAddProducts] = useState(null);
+  const [totalAmount, setTotalAmount] = useState(null);
   const form = useRef();
 
   useEffect(() => {
@@ -48,9 +49,22 @@ const Order = () => {
   };
 
   const handleClickDelete = (e) => {
+    const searchTable = tablesOpen.find((table) => table.code === numberTable);
     const searchOrder = orderClient.find((order) => order.code == e.code);
     const newOrder = orderClient.filter((order) => order != searchOrder);
+
+    const total = newOrder.reduce((acc, el) => acc + parseFloat(el.price), 0);
+
+    if (searchTable) {
+      tablesOpen.map((table) => {
+        if (table.code === numberTable) {
+          table.total = total;
+        }
+      });
+    }
+    setTotalAmount(total);
     setOrderClient(newOrder);
+    
   };
 
   const handleClickTable = (e) => {
@@ -60,9 +74,11 @@ const Order = () => {
     if (!searchTable) {
       setNumberTable(e);
       setOrderClient([]);
+      setTotalAmount(null);
     } else {
       setNumberTable(searchTable.code);
       setOrderClient(searchTable.order);
+      setTotalAmount(searchTable.total);
     }
   };
 
@@ -72,15 +88,28 @@ const Order = () => {
 
     const searchTable = tablesOpen.find((table) => table.code === numberTable);
 
+    const total = orderClient.reduce(
+      (acc, el) => acc + parseFloat(el.price),
+      0
+    );
+    setTotalAmount(total);
+
     if (!searchTable) {
       setTablesOpen([
         ...tablesOpen,
-        { code: numberTable, order: orderClient, startDate: today, finishDate:"" },
+        {
+          code: numberTable,
+          order: orderClient,
+          total: total,
+          startDate: today,
+          finishDate: "",
+        },
       ]);
     } else {
       tablesOpen.map((table) => {
         if (table.code === numberTable) {
           table.order = orderClient;
+          table.total = total;
         }
       });
     }
@@ -98,13 +127,14 @@ const Order = () => {
     const today = date.toLocaleString();
 
     const searchTable = tablesOpen.find((table) => table.code === numberTable);
+
     if (searchTable) {
       tablesOpen.map((table) => {
-        if(table.code === numberTable){
-          table.finishDate = today
+        if (table.code === numberTable) {
+          table.finishDate = today;
         }
-      })
-      
+      });
+
       setSales([...sales, searchTable]);
       const filterTable = tablesOpen.filter((tables) => tables !== searchTable);
 
@@ -191,9 +221,13 @@ const Order = () => {
                         </article>
                       ))}
                     </div>
+                    <div>
+                      <p>Total: ${totalAmount}</p>
+                    </div>
                     <div className="buttons-container">
                       {!addProducts ? (
                         <CustomButton
+                          nameType={"button"}
                           selector={"btn-gray"}
                           click={handleClickCloseTable}
                           text={"Cerrar mesa"}
@@ -201,11 +235,13 @@ const Order = () => {
                       ) : (
                         <>
                           <CustomButton
+                            nameType={"button"}
                             selector={"btn-gray"}
                             click={handleClickCancel}
                             text={"Cancelar"}
                           />
                           <CustomButton
+                            nameType={"button"}
                             selector={"btn-green"}
                             click={handleClickSave}
                             text={"Guardar"}

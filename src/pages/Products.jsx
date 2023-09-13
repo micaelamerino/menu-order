@@ -73,7 +73,7 @@ const Products = () => {
               {products?.map((e) => (
                 <tr key={e.code}>
                   <td>{e.code}</td>
-                  <td>{e.name}</td>
+                  <td>{e.name.slice(0,1).toUpperCase()+e.name.substring(1).toLowerCase()}</td>
                   <td>{e.quantity}</td>
                   <td>$ {e.price}</td>
                 </tr>
@@ -145,8 +145,8 @@ const Products = () => {
             {errors.quantity && <p>{errors.quantity}</p>}
           </div>
           <div className="buttons-container">
-            <CustomButton click={handleClickCancel} selector={"btn-gray"} text={"Cancelar"} />
-            <CustomButton selector={"btn-green"} text={"Añadir"} />
+            <CustomButton nameType={"button"} selector={"btn-gray"} click={handleClickCancel} text={"Cancelar"} />
+            <CustomButton nameType={"submit"} selector={"btn-green"} text={"Añadir"} />
           </div>
         </form>
       </section>
