@@ -59,12 +59,17 @@ const Order = () => {
       tablesOpen.map((table) => {
         if (table.code === numberTable) {
           table.total = total;
+          table.order = newOrder;
         }
       });
     }
     setTotalAmount(total);
     setOrderClient(newOrder);
-    
+
+    if (newOrder.length <= 0) {
+      const filterTable = tablesOpen.filter((tables) => tables !== searchTable);
+      setTablesOpen(filterTable);
+    }
   };
 
   const handleClickTable = (e) => {
