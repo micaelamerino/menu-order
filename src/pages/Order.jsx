@@ -48,9 +48,9 @@ const Order = () => {
     form.current.reset();
   };
 
-  const handleClickDelete = (e) => {
+  const handleClickDeleteProduct = (e) => {
     const searchTable = tablesOpen.find((table) => table.code === numberTable);
-    const searchOrder = orderClient.find((order) => order.code == e.code);
+    const searchOrder = orderClient.find((order) => order.code === e.code);
     const newOrder = orderClient.filter((order) => order != searchOrder);
 
     const total = newOrder.reduce((acc, el) => acc + parseFloat(el.price), 0);
@@ -218,15 +218,15 @@ const Order = () => {
                           </p>
                           <p>$ {e.price}</p>
                           <button
-                            onClick={() => handleClickDelete(e)}
+                            onClick={() => handleClickDeleteProduct(e)}
                             className="btn-delete"
                           >
-                            X
+                            Eliminar
                           </button>
                         </article>
                       ))}
                     </div>
-                    <div>
+                    <div className="total-container">
                       <p>Total: ${totalAmount}</p>
                     </div>
                     <div className="buttons-container">

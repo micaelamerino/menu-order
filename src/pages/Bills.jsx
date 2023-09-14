@@ -5,10 +5,11 @@ import CustomButton from "../components/CustomButton";
 
 const Bills = () => {
   const [bills, setBills] = useLocalStorage("bills", []);
+
   const initialValue = {
     date: "",
     distributor: "",
-    amount: "",
+    amount: 0,
     paid: "",
   };
   const { form, setForm, handleChange, formulario } = useForm(initialValue);
@@ -37,19 +38,19 @@ const Bills = () => {
     let isError = false;
 
     if (value.date.length <= 0) {
-      errors.date = "Debe completar el campo";
+      errors.date = "✍🏼 Complete el campo";
       isError = true;
     }
     if (value.distributor.length <= 0) {
-      errors.distributor = "Debe completar el campo";
+      errors.distributor = "✍🏼 Complete el campo";
       isError = true;
     }
-    if (value.amount.length <= 0) {
-      errors.amount = "Debe completar el campo";
+    if (value.amount.length <= 0 || value.amount === 0) {
+      errors.amount = "✍🏼 Complete el campo";
       isError = true;
     }
     if (value.paid.length <= 0) {
-      errors.paid = "Debe completar el campo";
+      errors.paid = "✍🏼 Complete el campo";
       isError = true;
     }
     return isError ? errors : null;
@@ -73,9 +74,9 @@ const Bills = () => {
               {bills?.map((e, i) => (
                 <tr key={i}>
                   <td>{e.date}</td>
-                  <td>{e.distributor.slice(0,1).toUpperCase()+e.distributor.substring(1).toLowerCase()}</td>
+                  <td>{e.distributor}</td>
                   <td>$ {e.amount}</td>
-                  <td>{e.paid.slice(0,1).toUpperCase()+e.paid.substring(1).toLowerCase()}</td>
+                  <td>{e.paid}</td>
                 </tr>
               ))}
             </tbody>
@@ -98,7 +99,8 @@ const Bills = () => {
               id="date"
               name="date"
               type="date"
-              autoComplete="on"
+              value={form.date}
+              autoComplete="off"
             />
           </div>
           <div className="error-message">
@@ -111,6 +113,10 @@ const Bills = () => {
               id="distributor"
               name="distributor"
               type="text"
+              value={
+                form.distributor.slice(0, 1).toUpperCase() +
+                form.distributor.substring(1).toLowerCase()
+              }
               autoComplete="off"
             />
           </div>
@@ -124,6 +130,8 @@ const Bills = () => {
               id="amount"
               name="amount"
               type="number"
+              value={form.amount}
+              min={0}
               autoComplete="off"
             />
           </div>
@@ -132,11 +140,15 @@ const Bills = () => {
           </div>
           <div className="form-content">
             <label htmlFor="paid">Medio de pago</label>
-            <input
+             <input
               onChange={handleChange}
               id="paid"
               name="paid"
               type="text"
+              value={
+                form.paid.slice(0, 1).toUpperCase() +
+                form.paid.substring(1).toLowerCase()
+              }
               autoComplete="off"
             />
           </div>
@@ -150,7 +162,11 @@ const Bills = () => {
               click={handleClickCancel}
               text={"Cancelar"}
             />
-            <CustomButton nameType={"submit"} selector={"btn-green"} text={"Añadir"} />
+            <CustomButton
+              nameType={"submit"}
+              selector={"btn-green"}
+              text={"Añadir"}
+            />
           </div>
         </form>
       </section>

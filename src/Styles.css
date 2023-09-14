@@ -142,16 +142,27 @@ nav>a:hover {
 .order-article {
     display: grid;
     grid-template-columns: repeat(4, 150px);
-    padding: 0.3em;
+    align-items: center;
+    padding: 0.7em;
+    background-color: #fff;
 }
 
 .btn-delete {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    border: transparent;
+    background-color: transparent;
+    padding: 0;
+}
+
+.btn-delete:hover {
+    color: var(--gris-oscuro);
+    transform: .3s;
+}
+
+.total-container {
+    background-color: var(--gris-oscuro);
+    color: #fff;
+    padding: 0.7em;
+    font-size: 1.2rem;
 }
 
 .header-form {
@@ -188,6 +199,16 @@ nav>a:hover {
     padding: 0.75em 0.6em;
 }
 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield
+}
+
 button {
     width: 125px;
     padding: 10px 0;
@@ -199,6 +220,7 @@ button {
 }
 
 .buttons-container {
+    margin-top: 0.6em;
     display: flex;
     gap: 0.6em;
 }
