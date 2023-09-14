@@ -20,20 +20,22 @@ const Sales = () => {
               <thead>
                 <tr>
                   <th>Mesa</th>
+                  <th>Personas</th>
                   <th>Apertura</th>
                   <th>Cierre</th>
-                  <th>Monto</th>
-                  <th>Medio de pago</th>
+                  <th>Forma de pago</th>
+                  <th>Total</th>
                 </tr>
               </thead>
               <tbody>
                 {sales?.map((sale, index) => (
                   <tr key={index}>
                     <td>{sale.code}</td>
+                    <td>{sale.people}</td>
                     <td>{sale.startDate}</td>
                     <td>{sale.finishDate}</td>
-                    <td>$ {sale.total}</td>
-                    <td>{}</td>
+                    <td>{sale.paid}</td>
+                    <td><b>$ {sale.total}</b></td>
                   </tr>
                 ))}
               </tbody>

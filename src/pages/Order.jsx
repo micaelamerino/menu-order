@@ -15,7 +15,10 @@ const Order = () => {
   const [numberTable, setNumberTable] = useState("");
   const [addProducts, setAddProducts] = useState(null);
   const [totalAmount, setTotalAmount] = useState(null);
+  const [peopleQuantity, setPeopleQuantity] = useState(0);
+  const [paidMode, setPaidMode] = useState("");
   const form = useRef();
+  const formFinish = useRef();
 
   useEffect(() => {
     setFirstInstance(true);
@@ -108,6 +111,8 @@ const Order = () => {
           total: total,
           startDate: today,
           finishDate: "",
+          people: 0,
+          paid: "",
         },
       ]);
     } else {
@@ -128,6 +133,17 @@ const Order = () => {
   };
 
   const handleClickCloseTable = () => {
+    formFinish.current.className = "visible";
+  };
+
+  const handleChangePeople = (e) => {
+    setPeopleQuantity(e.target.value);
+  };
+  const handleChangePaid = (e) => {
+    setPaidMode(e.target.value);
+  };
+  const handleClickFinish = (e) => {
+    e.preventDefault();
     const date = new Date();
     const today = date.toLocaleString();
 
@@ -137,6 +153,8 @@ const Order = () => {
       tablesOpen.map((table) => {
         if (table.code === numberTable) {
           table.finishDate = today;
+          table.people = peopleQuantity;
+          table.paid = paidMode;
         }
       });
 
@@ -146,6 +164,14 @@ const Order = () => {
       setTablesOpen(filterTable);
       setOrderClient([]);
     }
+    setPeopleQuantity(0);
+    setPaidMode("");
+    formFinish.current.className = "no-visible";
+  };
+  const handleClickCancelFinish = () => {
+    setPeopleQuantity(0);
+    setPaidMode("");
+    formFinish.current.className = "no-visible";
   };
 
   return (
@@ -258,6 +284,50 @@ const Order = () => {
                 ) : (
                   <p>Aún no hay productos ingresados</p>
                 )}
+              </section>
+              <section ref={formFinish} className="no-visible">
+                <div className="form-finish-header">
+                  <h2>Confirmación</h2>
+                </div>
+                <form className="form-container">
+                  <div className="form-content">
+                    <label htmlFor="people">Total personas:</label>
+                    <input
+                      onChange={handleChangePeople}
+                      value={peopleQuantity}
+                      type="number"
+                      min={0}
+                      id="people"
+                      name="people"
+                      autoComplete="off"
+                    />
+                  </div>
+                  <div className="form-content">
+                    <label htmlFor="paid">Forma de pago</label>
+                    <input
+                      onChange={handleChangePaid}
+                      value={paidMode}
+                      type="text"
+                      id="paid"
+                      name="paid"
+                      autoComplete="on"
+                    />
+                  </div>
+                  <div className="buttons-container">
+                    <CustomButton
+                      nameType={"button"}
+                      selector={"btn-gray"}
+                      click={handleClickCancelFinish}
+                      text={"Cancelar"}
+                    />
+                    <CustomButton
+                      nameType={"submit"}
+                      selector={"btn-green"}
+                      click={handleClickFinish}
+                      text={"Finalizar"}
+                    />
+                  </div>
+                </form>
               </section>
             </section>
           </>

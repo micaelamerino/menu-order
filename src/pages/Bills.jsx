@@ -12,7 +12,7 @@ const Bills = () => {
     amount: 0,
     paid: "",
   };
-  const { form, setForm, handleChange, formulario } = useForm(initialValue);
+  const { form, setForm, handleChange } = useForm(initialValue);
   const [errors, setErrors] = useState({});
 
   const handleSubmit = (e) => {
@@ -20,7 +20,6 @@ const Bills = () => {
     const err = validateFields(form);
     if (err === null) {
       setBills([...bills, form]);
-      formulario.current.reset();
       setForm(initialValue);
       setErrors({});
     } else {
@@ -29,7 +28,7 @@ const Bills = () => {
   };
 
   const handleClickCancel = () => {
-    formulario.current.reset();
+    setForm(initialValue);
     setErrors({});
   };
 
@@ -45,7 +44,7 @@ const Bills = () => {
       errors.distributor = "✍🏼 Complete el campo";
       isError = true;
     }
-    if (value.amount.length <= 0 || value.amount === 0) {
+    if (value.amount === 0) {
       errors.amount = "✍🏼 Complete el campo";
       isError = true;
     }
@@ -66,8 +65,8 @@ const Bills = () => {
               <tr>
                 <th>Fecha</th>
                 <th>Proveedor</th>
-                <th>Monto</th>
-                <th>Medio de pago</th>
+                <th>Forma de pago</th>
+                <th>Total</th>
               </tr>
             </thead>
             <tbody>
@@ -75,8 +74,8 @@ const Bills = () => {
                 <tr key={i}>
                   <td>{e.date}</td>
                   <td>{e.distributor}</td>
-                  <td>$ {e.amount}</td>
                   <td>{e.paid}</td>
+                  <td><b>$ {e.amount}</b></td>
                 </tr>
               ))}
             </tbody>
@@ -88,7 +87,6 @@ const Bills = () => {
       <section className="form-section">
         <h2 className="header-form">Nuevo gasto</h2>
         <form
-          ref={formulario}
           onSubmit={handleSubmit}
           className="form-container"
         >
@@ -149,7 +147,7 @@ const Bills = () => {
                 form.paid.slice(0, 1).toUpperCase() +
                 form.paid.substring(1).toLowerCase()
               }
-              autoComplete="off"
+              autoComplete="on"
             />
           </div>
           <div className="error-message">

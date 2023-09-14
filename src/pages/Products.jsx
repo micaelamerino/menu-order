@@ -11,7 +11,7 @@ const Products = () => {
     price: 0,
     quantity: 0,
   };
-  const { form, setForm, handleChange, formulario } = useForm(initialValue);
+  const { form, setForm, handleChange } = useForm(initialValue);
   const [errors, setErrors] = useState({});
 
   const handleSubmit = (e) => {
@@ -19,7 +19,6 @@ const Products = () => {
     const err = validateFields(form);
     if (err === null) {
       setProducts([...products, form]);
-      formulario.current.reset();
       setForm(initialValue);
       setErrors({});
     } else {
@@ -28,7 +27,7 @@ const Products = () => {
   };
 
   const handleClickCancel = () => {
-    formulario.current.reset();
+    setForm(initialValue);
     setErrors({});
   };
 
@@ -36,19 +35,23 @@ const Products = () => {
     let errors = {};
     let isError = false;
 
-    if (value.code.length <= 0 || value.code === 0) {
+    if (value.code === 0) {
       errors.code = "✍🏼 Complete el campo";
+      isError = true;
+    }
+    if (products.find((prod) => prod.code === value.code)) {
+      errors.code = "✍🏼 Este codigo ya existe, coloque otro";
       isError = true;
     }
     if (value.name.length <= 0) {
       errors.name = "✍🏼 Complete el campo";
       isError = true;
     }
-    if (value.price.length <= 0 || value.price === 0) {
+    if (value.price === 0) {
       errors.price = "✍🏼 Complete el campo";
       isError = true;
     }
-    if (value.quantity.length <= 0 || value.quantity === 0) {
+    if (value.quantity === 0) {
       errors.quantity = "✍🏼 Complete el campo";
       isError = true;
     }
@@ -70,14 +73,12 @@ const Products = () => {
               </tr>
             </thead>
             <tbody>
-              {products?.map((e) => (
-                <tr key={e.code}>
-                  <td>{e.code}</td>
-                  <td>
-                    {e.name}
-                  </td>
-                  <td>{e.quantity}</td>
-                  <td>$ {e.price}</td>
+              {products?.map((prod, index) => (
+                <tr key={index}>
+                  <td>{prod.code}</td>
+                  <td>{prod.name}</td>
+                  <td>{prod.quantity}</td>
+                  <td><b>$ {prod.price}</b></td>
                 </tr>
               ))}
             </tbody>
@@ -88,11 +89,7 @@ const Products = () => {
       </section>
       <section className="form-section">
         <h2 className="header-form">Ingresar producto</h2>
-        <form
-          ref={formulario}
-          onSubmit={handleSubmit}
-          className="form-container"
-        >
+        <form onSubmit={handleSubmit} className="form-container">
           <div className="form-content">
             <label htmlFor="code">Código</label>
             <input
@@ -116,8 +113,10 @@ const Products = () => {
               id="name"
               name="name"
               type="text"
-              value={form.name.slice(0, 1).toUpperCase() +
-                form.name.substring(1).toLowerCase()}
+              value={
+                form.name.slice(0, 1).toUpperCase() +
+                form.name.substring(1).toLowerCase()
+              }
               autoComplete="off"
             />
           </div>
