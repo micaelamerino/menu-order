@@ -1,8 +1,27 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TablesContext } from "../context/TablesContext";
 
 const Sales = () => {
   const { sales } = useContext(TablesContext);
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [totalPeople, setTotalPeople] = useState(0);
+  const [averagePerson, setAveragePerson] = useState(0);
+  const [averageSale, setAverageSale] = useState(0);
+
+  useEffect(() => {
+    if (sales.length > 0) {
+      const totalAmount = sales.reduce((acc, el) => acc + el.total, 0);
+      setTotalAmount(totalAmount);
+      const totalPeople = sales.reduce(
+        (acc, el) => acc + parseInt(el.people),
+        0
+      );
+      setTotalPeople(totalPeople);
+      setAveragePerson(totalAmount / totalPeople);
+      setAverageSale(parseInt(totalAmount / sales.length));
+    }
+  }, []);
+
   return (
     <main className="sales-section">
       <section className="list-section">
@@ -10,11 +29,19 @@ const Sales = () => {
 
         {sales.length > 0 ? (
           <>
-            <div>
-              <p>Personas:</p>
-              <p>Promedio por persona:</p>
-              <p>Promedio por venta:</p>
-              <p>Total:</p>
+            <div className="container-data-sales">
+              <p>
+                Personas: <b>{totalPeople}</b>
+              </p>
+              <p>
+                Promedio por persona: <b>$ {averagePerson}</b>
+              </p>
+              <p>
+                Promedio por venta: <b>$ {averageSale}</b>
+              </p>
+              <p>
+                Total: <b>$ {totalAmount}</b>{" "}
+              </p>
             </div>
             <table>
               <thead>
@@ -35,7 +62,9 @@ const Sales = () => {
                     <td>{sale.startDate}</td>
                     <td>{sale.finishDate}</td>
                     <td>{sale.paid}</td>
-                    <td><b>$ {sale.total}</b></td>
+                    <td>
+                      <b>$ {sale.total}</b>
+                    </td>
                   </tr>
                 ))}
               </tbody>

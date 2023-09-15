@@ -111,7 +111,7 @@ const Order = () => {
           total: total,
           startDate: today,
           finishDate: "",
-          people: 0,
+          people: peopleQuantity,
           paid: "",
         },
       ]);
@@ -306,7 +306,7 @@ const Order = () => {
                     <label htmlFor="paid">Forma de pago</label>
                     <input
                       onChange={handleChangePaid}
-                      value={paidMode}
+                      value={paidMode.slice(0,1).toUpperCase()+paidMode.substring(1).toLowerCase()}
                       type="text"
                       id="paid"
                       name="paid"

@@ -299,3 +299,9 @@ td {
     padding: 15px 0;
     text-align: center;
 }
+
+.container-data-sales {
+    display: flex;
+    gap: 5em;
+    margin: 20px 0 30px 0;
+}
