@@ -17,7 +17,7 @@ const Sales = () => {
         0
       );
       setTotalPeople(totalPeople);
-      setAveragePerson(totalAmount / totalPeople);
+      setAveragePerson(parseInt(totalAmount / totalPeople));
       setAverageSale(parseInt(totalAmount / sales.length));
     }
   }, []);
@@ -71,10 +71,10 @@ const Sales = () => {
             </table>
           </>
         ) : (
-          <p>Aún no hay ventas registrados</p>
+          <p>Aún no hay ventas registradas</p>
         )}
       </section>
-      <section className="form-section">
+      <section className="section-form">
         <h2 className="header-form">Editar venta</h2>
         <form></form>
       </section>

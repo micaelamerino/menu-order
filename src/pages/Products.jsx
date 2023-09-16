@@ -87,7 +87,7 @@ const Products = () => {
           <p>Aún no hay productos registrados</p>
         )}
       </section>
-      <section className="form-section">
+      <section className="section-form">
         <h2 className="header-form">Ingresar producto</h2>
         <form onSubmit={handleSubmit} className="form-container">
           <div className="form-content">

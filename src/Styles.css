@@ -61,7 +61,7 @@ nav>a:hover {
 
 }
 
-.form-section {
+.section-form {
     width: 40%;
     background-color: var(--gris);
     height: 91vh;
@@ -270,12 +270,12 @@ td {
     padding: 0.5em;
 }
 
-.selected-table {
+.select-table {
     display: grid;
     place-content: center;
 }
 
-.selected-table>p {
+.select-table>p {
     border: 1px solid black;
     padding: 0.6em;
 }

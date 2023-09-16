@@ -84,7 +84,7 @@ const Bills = () => {
           <p>Aún no hay gastos registrados</p>
         )}
       </section>
-      <section className="form-section">
+      <section className="section-form">
         <h2 className="header-form">Nuevo gasto</h2>
         <form
           onSubmit={handleSubmit}
