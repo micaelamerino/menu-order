@@ -14,7 +14,8 @@ const CloseTable = () => {
     setTablesOpen,
     setOrderClient,
   } = useContext(TablesContext);
-  const [paidMode, setPaidMode] = useState("");
+
+  const [paidMode, setPaidMode] = useState("Efectivo");
 
   const handleChangePeople = (e) => {
     setPeopleQuantity(e.target.value);
@@ -63,7 +64,7 @@ const CloseTable = () => {
         <h2>Confirmación</h2>
       </div>
       <form className="form-container">
-        <div className="form-content">
+        <div className="confirmation-form">
           <label htmlFor="people">Total personas:</label>
           <input
             onChange={handleChangePeople}
@@ -72,22 +73,16 @@ const CloseTable = () => {
             min={0}
             id="people"
             name="people"
-            autoComplete="off"
+            autoComplete="on"
+            autoFocus
           />
         </div>
-        <div className="form-content">
-          <label htmlFor="paid">Forma de pago</label>
-          <input
-            onChange={handleChangePaid}
-            value={
-              paidMode.slice(0, 1).toUpperCase() +
-              paidMode.substring(1).toLowerCase()
-            }
-            type="text"
-            id="paid"
-            name="paid"
-            autoComplete="on"
-          />
+        <div className="confirmation-form">
+          <label htmlFor="paid">Forma de pago:</label>
+          <select name="paid" id="paid" onChange={handleChangePaid}>
+            <option value={paidMode}>Efectivo</option>
+            <option value="Transferencia">Transferencia</option>
+          </select>
         </div>
         <div className="buttons-container">
           <CustomButton

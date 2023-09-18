@@ -11,7 +11,7 @@ const Bills = () => {
     date: "",
     distributor: "",
     amount: 0,
-    paid: "",
+    paid: "Efectivo",
   };
   const { form, setForm, handleChange } = useForm(initialValue);
   const [errors, setErrors] = useState({});
@@ -155,18 +155,11 @@ const Bills = () => {
               {errors.amount && <p>{errors.amount}</p>}
             </div>
             <div className="form-content">
-              <label htmlFor="paid">Medio de pago</label>
-              <input
-                onChange={handleChange}
-                id="paid"
-                name="paid"
-                type="text"
-                value={
-                  form.paid.slice(0, 1).toUpperCase() +
-                  form.paid.substring(1).toLowerCase()
-                }
-                autoComplete="on"
-              />
+              <label htmlFor="paid">Forma de pago:</label>
+              <select name="paid" id="paid" onChange={handleChange}>
+                <option value={form.paid}>Efectivo</option>
+                <option value="Transferencia">Transferencia</option>
+              </select>
             </div>
             <div className="error-message">
               {errors.paid && <p>{errors.paid}</p>}

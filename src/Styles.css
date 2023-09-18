@@ -194,27 +194,37 @@ nav>a:hover {
     width: 30%;
 }
 
-.form-content>input {
+.form-content>input{
     width: 70%;
     outline: none;
     border-radius: 5px;
     border: 1px solid var(--gris-oscuro);
-    padding: 0.75em 0.6em;
+    padding: 0.6em;
+}
+.form-content>select{
+    text-align: start;
+}
+.confirmation-form {
+    display: flex;
+    align-items: center;
+    margin-top: 0.6em;
+    justify-content: center;
+    gap: 10px;
+}
+.confirmation-form >label{
+width: 30%;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
+.confirmation-form >input, select {
+ width: 25%;
+ height: 30px;
+ border-radius: 5px;
+ outline: none;
+ border: 1px solid var(--gris-oscuro);
 
-input[type=number] {
-    -moz-appearance: textfield
 }
-
 button {
-    width: 135px;
-    padding: 10px 0;
+    padding: 10px 15px;
     cursor: pointer;
     border-radius: 5px;
     border: 1px solid var(--gris);
@@ -228,7 +238,6 @@ button {
     justify-content: end;
     gap: 0.6em;
 }
-
 
 .btn-gray {
     background-color: var(--gris-oscuro);
