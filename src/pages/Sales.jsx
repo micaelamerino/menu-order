@@ -1,26 +1,28 @@
 import { useContext, useEffect, useState } from "react";
 import { TablesContext } from "../context/TablesContext";
+import CustomSelectionSection from "../components/CustomSelectionSection";
 
 const Sales = () => {
   const { sales } = useContext(TablesContext);
+  const [firstInstance, setFirstInstance] = useState(false);
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalPeople, setTotalPeople] = useState(0);
   const [averagePerson, setAveragePerson] = useState(0);
   const [averageSale, setAverageSale] = useState(0);
 
   useEffect(() => {
-    if (sales.length > 0) {
-      const totalAmount = sales.reduce((acc, el) => acc + el.total, 0);
-      setTotalAmount(totalAmount);
-      const totalPeople = sales.reduce(
-        (acc, el) => acc + parseInt(el.people),
-        0
-      );
-      setTotalPeople(totalPeople);
-      setAveragePerson(parseInt(totalAmount / totalPeople));
-      setAverageSale(parseInt(totalAmount / sales.length));
-    }
-  }, []);
+    setFirstInstance(true);
+    
+    const totalAmount = sales.reduce((acc, el) => acc + el.total, 0);
+    setTotalAmount(totalAmount);
+
+    const totalPeople = sales.reduce((acc, el) => acc + parseInt(el.people), 0);
+    setTotalPeople(totalPeople);
+
+    setAveragePerson(parseInt(totalAmount / totalPeople));
+
+    setAverageSale(parseInt(totalAmount / sales.length));
+  }, [sales]);
 
   return (
     <main className="sales-section">
@@ -74,10 +76,14 @@ const Sales = () => {
           <p>Aún no hay ventas registradas</p>
         )}
       </section>
-      <section className="section-form">
-        <h2 className="header-form">Editar venta</h2>
-        <form></form>
-      </section>
+      {!firstInstance ? (
+        <section className="section-form">
+          <h2 className="header-form">Editar venta</h2>
+          <form></form>
+        </section>
+      ) : (
+        <CustomSelectionSection text={"⬅ Seleccione un ítem"} />
+      )}
     </main>
   );
 };

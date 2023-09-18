@@ -22,7 +22,7 @@ const ClientOrder = () => {
     const searchOrder = orderClient.find((order) => order.code === e.code);
     const newOrder = orderClient.filter((order) => order != searchOrder);
 
-    const total = newOrder.reduce((acc, el) => acc + parseFloat(el.price), 0);
+    const total = newOrder.reduce((acc, el) => acc + parseInt(el.price), 0);
 
     if (searchTable) {
       tablesOpen.map((table) => {
@@ -54,7 +54,7 @@ const ClientOrder = () => {
     const searchTable = tablesOpen.find((table) => table.code === numberTable);
 
     const total = orderClient.reduce(
-      (acc, el) => acc + parseFloat(el.price),
+      (acc, el) => acc + parseInt(el.price),
       0
     );
     setTotalAmount(total);
@@ -100,12 +100,12 @@ const ClientOrder = () => {
                   <b>{e.name}</b>
                 </p>
                 <p>$ {e.price}</p>
-                <button
-                  onClick={() => handleClickDeleteProduct(e)}
-                  className="btn-delete"
-                >
-                  Eliminar
-                </button>
+                <CustomButton
+                nameType={"button"}
+                selector={"btn-delete"}
+                click={() => handleClickDeleteProduct(e)}
+                text={"Eliminar"}
+              />
               </article>
             ))}
           </div>

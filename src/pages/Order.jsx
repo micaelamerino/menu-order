@@ -3,10 +3,11 @@ import { TablesContext } from "../context/TablesContext";
 import SearchForm from "../components/order-content/SearchForm";
 import ClientOrder from "../components/order-content/ClientOrder";
 import CloseTable from "../components/order-content/CloseTable";
+import CustomSelectionSection from "../components/CustomSelectionSection";
 
 const Order = () => {
   const tables = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  const [firstInstance, setFirstInstance] = useState(null);
+  const [firstInstance, setFirstInstance] = useState(false);
   const {
     tablesOpen,
     setOrderClient,
@@ -14,8 +15,7 @@ const Order = () => {
     setNumberTable,
     setTotalAmount,
   } = useContext(TablesContext);
-  
-  
+
   useEffect(() => {
     setFirstInstance(true);
   }, []);
@@ -63,18 +63,14 @@ const Order = () => {
 
       <>
         {!firstInstance ? (
-          <>
-            <section className="section-form">
-              <h2 className="header-form">Mesa {numberTable}</h2>
-              <SearchForm />
-              <ClientOrder/>
-              <CloseTable/>
-            </section>
-          </>
+          <section className="section-form">
+            <h2 className="header-form">Mesa {numberTable}</h2>
+            <SearchForm />
+            <ClientOrder />
+            <CloseTable />
+          </section>
         ) : (
-          <div className="section-form select-table">
-            <p>⬅ Seleccione una mesa</p>
-          </div>
+          <CustomSelectionSection text={"⬅ Seleccione una mesa"} />
         )}
       </>
     </main>

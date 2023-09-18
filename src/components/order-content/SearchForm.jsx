@@ -4,7 +4,8 @@ import { ProductContext } from "../../context/ProductContext";
 
 const SearchForm = () => {
   const form = useRef();
-  const { setAddProducts, orderClient, setOrderClient } = useContext(TablesContext);
+  const { setAddProducts, orderClient, setOrderClient } =
+    useContext(TablesContext);
   const { products } = useContext(ProductContext);
   const [search, setSearch] = useState("");
   const [filterProducts, setFilterProducts] = useState([]);
