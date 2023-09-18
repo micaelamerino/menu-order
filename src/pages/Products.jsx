@@ -24,6 +24,10 @@ const Products = () => {
     setFirstInstance(false);
   };
 
+  const handleClickReset = () => {
+    setProducts([]);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const err = validateFields(form);
@@ -74,12 +78,22 @@ const Products = () => {
       <section className="list-section">
         <div className="bills-header">
           <h2>PRODUCTOS</h2>
-          <CustomButton
-            nameType={"button"}
-            selector={"btn-green"}
-            click={handleClickAddProduct}
-            text={"Añadir producto"}
-          />
+          <div className="buttons-container">
+            {products.length > 0 && (
+              <CustomButton
+                nameType={"button"}
+                selector={"btn-gray"}
+                click={handleClickReset}
+                text={"Reiniciar"}
+              />
+            )}
+            <CustomButton
+              nameType={"button"}
+              selector={"btn-green"}
+              click={handleClickAddProduct}
+              text={"Añadir producto"}
+            />
+          </div>
         </div>
         {products.length > 0 ? (
           <table>

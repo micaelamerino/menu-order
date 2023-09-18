@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { TablesContext } from "../context/TablesContext";
 import CustomSelectionSection from "../components/CustomSelectionSection";
+import CustomButton from "../components/CustomButton";
 
 const Sales = () => {
-  const { sales } = useContext(TablesContext);
+  const { sales, setSales } = useContext(TablesContext);
   const [firstInstance, setFirstInstance] = useState(false);
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalPeople, setTotalPeople] = useState(0);
@@ -12,7 +13,7 @@ const Sales = () => {
 
   useEffect(() => {
     setFirstInstance(true);
-    
+
     const totalAmount = sales.reduce((acc, el) => acc + el.total, 0);
     setTotalAmount(totalAmount);
 
@@ -24,10 +25,24 @@ const Sales = () => {
     setAverageSale(parseInt(totalAmount / sales.length));
   }, [sales]);
 
+  const handleClickReset = () => {
+    setSales([]);
+  };
+
   return (
     <main className="sales-section">
       <section className="list-section">
-        <h2>VENTAS</h2>
+        <div className="bills-header">
+          <h2>VENTAS</h2>
+          {sales.length > 0 && (
+            <CustomButton
+              nameType={"button"}
+              selector={"btn-gray"}
+              click={handleClickReset}
+              text={"Reiniciar"}
+            />
+          )}
+        </div>
 
         {sales.length > 0 ? (
           <>

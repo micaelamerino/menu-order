@@ -23,6 +23,9 @@ const Bills = () => {
   const handleClickAddBill = () => {
     setFirstInstance(false);
   };
+  const handleClickReset = () => {
+    setBills([]);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -69,12 +72,22 @@ const Bills = () => {
       <section className="list-section">
         <div className="bills-header">
           <h2>GASTOS</h2>
-          <CustomButton
-            nameType={"button"}
-            selector={"btn-green"}
-            click={handleClickAddBill}
-            text={"Nuevo gasto"}
-          />
+          <div className="buttons-container">
+            {bills.length > 0 && (
+              <CustomButton
+                nameType={"button"}
+                selector={"btn-gray"}
+                click={handleClickReset}
+                text={"Reiniciar"}
+              />
+            )}
+            <CustomButton
+              nameType={"button"}
+              selector={"btn-green"}
+              click={handleClickAddBill}
+              text={"Nuevo gasto"}
+            />
+          </div>
         </div>
 
         {bills.length > 0 ? (
