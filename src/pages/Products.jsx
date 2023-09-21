@@ -15,6 +15,7 @@ const Products = () => {
   };
   const { form, setForm, handleChange } = useForm(initialValue);
   const [errors, setErrors] = useState({});
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     setFirstInstance(true);
@@ -22,17 +23,34 @@ const Products = () => {
 
   const handleClickAddProduct = () => {
     setFirstInstance(false);
+    setEdit(false);
+    setForm(initialValue);
   };
 
   const handleClickReset = () => {
     setProducts([]);
+    setEdit(false);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const searchProduct = products.find(
+      (prod) => prod.code === form.code
+    );
     const err = validateFields(form);
-    if (err === null) {
+    if (err === null && !searchProduct) {
       setProducts([...products, form]);
+      setForm(initialValue);
+      setErrors({});
+    } else if (err === null && searchProduct){
+      products.map((prod) => {
+        if (prod.code === form.code) {
+          (prod.code = form.code),
+          (prod.name = form.name),
+          (prod.price = form.price),
+          (prod.quantity = form.quantity);
+        }
+      });
       setForm(initialValue);
       setErrors({});
     } else {
@@ -43,6 +61,7 @@ const Products = () => {
   const handleClickCancel = () => {
     setForm(initialValue);
     setErrors({});
+    setEdit(false);
   };
 
   const validateFields = (value) => {
@@ -51,10 +70,6 @@ const Products = () => {
 
     if (value.code === 0) {
       errors.code = "✍🏼 Complete el campo";
-      isError = true;
-    }
-    if (products.find((prod) => prod.code === value.code)) {
-      errors.code = "✍🏼 Este codigo ya existe, coloque otro";
       isError = true;
     }
     if (value.name.length <= 0) {
@@ -71,6 +86,17 @@ const Products = () => {
     }
 
     return isError ? errors : null;
+  };
+
+  const handleClickEdit = (prod) => {
+    setEdit(true);
+    setFirstInstance(false);
+    setForm({
+      code: prod.code,
+      name: prod.name,
+      price: prod.price,
+      quantity: prod.quantity,
+    });
   };
 
   return (
@@ -107,7 +133,7 @@ const Products = () => {
             </thead>
             <tbody>
               {products?.map((prod, index) => (
-                <tr key={index}>
+                <tr key={index} onClick={() => handleClickEdit(prod)}>
                   <td>{prod.code}</td>
                   <td>{prod.name}</td>
                   <td>{prod.quantity}</td>
@@ -196,11 +222,19 @@ const Products = () => {
                 click={handleClickCancel}
                 text={"Cancelar"}
               />
-              <CustomButton
-                nameType={"submit"}
-                selector={"btn-green"}
-                text={"Añadir"}
-              />
+              {edit ? (
+                <CustomButton
+                  nameType={"submit"}
+                  selector={"btn-green"}
+                  text={"Actualizar"}
+                />
+              ) : (
+                <CustomButton
+                  nameType={"submit"}
+                  selector={"btn-green"}
+                  text={"Añadir"}
+                />
+              )}
             </div>
           </form>
         </section>

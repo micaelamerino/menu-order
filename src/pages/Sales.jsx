@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { TablesContext } from "../context/TablesContext";
 import CustomSelectionSection from "../components/CustomSelectionSection";
 import CustomButton from "../components/CustomButton";
+import useForm from "../hooks/useForm";
 
 const Sales = () => {
   const { sales, setSales } = useContext(TablesContext);
@@ -10,6 +11,17 @@ const Sales = () => {
   const [totalPeople, setTotalPeople] = useState(0);
   const [averagePerson, setAveragePerson] = useState(0);
   const [averageSale, setAverageSale] = useState(0);
+  const initialValue = {
+    code: 0,
+    people: "",
+    startDate: 0,
+    finishDate: "",
+    paid: "",
+    total: 0,
+  };
+  const { form, setForm, handleChange } = useForm(initialValue);
+  const [errors, setErrors] = useState({});
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     setFirstInstance(true);
@@ -27,6 +39,88 @@ const Sales = () => {
 
   const handleClickReset = () => {
     setSales([]);
+    setEdit(false);
+    setForm(initialValue);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const searchSale = sales.find(
+      (sale) =>
+        sale.startDate === form.startDate && sale.finishDate === form.finishDate
+    );
+    const err = validateFields(form);
+    if (err === null && !searchSale) {
+      setSales([...sales, form]);
+      setForm(initialValue);
+      setErrors({});
+    } else if (err === null && searchSale) {
+      sales.map((sale) => {
+        if (
+          sale.startDate === form.startDate &&
+          sale.finishDate === form.finishDate
+        ) {
+          (sale.code = form.code),
+            (sale.people = form.people),
+            (sale.startDate = form.startDate),
+            (sale.finishDate = form.finishDate),
+            (sale.paid = form.paid),
+            (sale.total = form.total);
+        }
+      });
+      setForm(initialValue);
+      setErrors({});
+    } else {
+      setErrors(err);
+    }
+  };
+
+  const validateFields = (value) => {
+    let errors = {};
+    let isError = false;
+
+    if (value.code.length <= 0) {
+      errors.code = "✍🏼 Complete el campo";
+      isError = true;
+    }
+    if (value.people.length <= 0) {
+      errors.people = "✍🏼 Complete el campo";
+      isError = true;
+    }
+    if (value.startDate.length <= 0) {
+      errors.startDate = "✍🏼 Complete el campo";
+      isError = true;
+    }
+    if (value.finishDate === 0) {
+      errors.finishDate = "✍🏼 Complete el campo";
+      isError = true;
+    }
+    if (value.paid.length <= 0) {
+      errors.paid = "✍🏼 Complete el campo";
+      isError = true;
+    }
+    if (value.total.length <= 0) {
+      errors.total = "✍🏼 Complete el campo";
+      isError = true;
+    }
+    return isError ? errors : null;
+  };
+
+  const handleClickCancel = () => {
+    setFirstInstance(true);
+  };
+
+  const handleClickEdit = (sale) => {
+    setEdit(true);
+    setFirstInstance(false);
+    setForm({
+      code: sale.code,
+      people: sale.people,
+      startDate: sale.startDate,
+      finishDate: sale.finishDate,
+      paid: sale.paid,
+      total: sale.total,
+    });
   };
 
   return (
@@ -73,7 +167,7 @@ const Sales = () => {
               </thead>
               <tbody>
                 {sales?.map((sale, index) => (
-                  <tr key={index}>
+                  <tr key={index} onClick={() => handleClickEdit(sale)}>
                     <td>{sale.code}</td>
                     <td>{sale.people}</td>
                     <td>{sale.startDate}</td>
@@ -94,7 +188,108 @@ const Sales = () => {
       {!firstInstance ? (
         <section className="section-form">
           <h2 className="header-form">Editar venta</h2>
-          <form></form>
+          <form onSubmit={handleSubmit} className="form-container">
+            <div className="form-content">
+              <label htmlFor="code">Código</label>
+              <input
+                onChange={handleChange}
+                id="code"
+                name="code"
+                type="number"
+                value={form.code}
+                autoComplete="off"
+              />
+            </div>
+            <div className="error-message">
+              {errors.code && <p>{errors.code}</p>}
+            </div>
+            <div className="form-content">
+              <label htmlFor="people">Personas</label>
+              <input
+                onChange={handleChange}
+                id="people"
+                name="people"
+                type="number"
+                value={form.people}
+                autoComplete="off"
+              />
+            </div>
+            <div className="error-message">
+              {errors.people && <p>{errors.people}</p>}
+            </div>
+            <div className="form-content">
+              <label htmlFor="start">Inicio</label>
+              <input
+                onChange={handleChange}
+                id="start"
+                name="start"
+                type="text"
+                value={form.startDate}
+                autoComplete="off"
+              />
+            </div>
+            <div className="error-message">
+              {errors.startDate && <p>{errors.startDate}</p>}
+            </div>
+            <div className="form-content">
+              <label htmlFor="finish">Cierre</label>
+              <input
+                onChange={handleChange}
+                id="finish"
+                name="finish"
+                type="text"
+                value={form.finishDate}
+                min={0}
+                autoComplete="off"
+              />
+            </div>
+            <div className="error-message">
+              {errors.finishDate && <p>{errors.finishDate}</p>}
+            </div>
+            <div className="form-content">
+              <label htmlFor="paid">Forma de pago:</label>
+              <input
+                onChange={handleChange}
+                type="text"
+                id="paid"
+                name="paid"
+                value={form.paid}
+                autoComplete="on"
+              />
+            </div>
+            <div className="error-message">
+              {errors.paid && <p>{errors.paid}</p>}
+            </div>
+            <div className="form-content">
+              <label htmlFor="total">Total:</label>
+              <input
+                onChange={handleChange}
+                type="number"
+                id="total"
+                name="total"
+                value={form.total}
+                autoComplete="off"
+              />
+            </div>
+            <div className="error-message">
+              {errors.total && <p>{errors.total}</p>}
+            </div>
+            {edit && (
+              <div className="buttons-container">
+                <CustomButton
+                  nameType={"button"}
+                  selector={"btn-gray"}
+                  click={handleClickCancel}
+                  text={"Cancelar"}
+                />
+                <CustomButton
+                  nameType={"submit"}
+                  selector={"btn-green"}
+                  text={"Actualizar"}
+                />
+              </div>
+            )}
+          </form>
         </section>
       ) : (
         <CustomSelectionSection text={"⬅ Seleccione un ítem"} />

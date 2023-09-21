@@ -11,10 +11,11 @@ const Bills = () => {
     date: "",
     distributor: "",
     amount: 0,
-    paid: "Efectivo",
+    paid: "",
   };
   const { form, setForm, handleChange } = useForm(initialValue);
   const [errors, setErrors] = useState({});
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     setFirstInstance(true);
@@ -22,16 +23,35 @@ const Bills = () => {
 
   const handleClickAddBill = () => {
     setFirstInstance(false);
+    setForm(initialValue);
+    setEdit(false);
   };
+
   const handleClickReset = () => {
     setBills([]);
+    setEdit(false);
+    setForm(initialValue);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const searchBill = bills.find(
+      (bill) => bill.distributor === form.distributor
+    );
     const err = validateFields(form);
-    if (err === null) {
+    if (err === null && !searchBill) {
       setBills([...bills, form]);
+      setForm(initialValue);
+      setErrors({});
+    } else if (err === null && searchBill) {
+      bills.map((bill) => {
+        if (bill.distributor === form.distributor) {
+          (bill.distributor = form.distributor),
+            (bill.date = form.date),
+            (bill.amount = form.amount),
+            (bill.paid = form.paid);
+        }
+      });
       setForm(initialValue);
       setErrors({});
     } else {
@@ -42,6 +62,7 @@ const Bills = () => {
   const handleClickCancel = () => {
     setForm(initialValue);
     setErrors({});
+    setEdit(false);
   };
 
   const validateFields = (value) => {
@@ -65,6 +86,17 @@ const Bills = () => {
       isError = true;
     }
     return isError ? errors : null;
+  };
+
+  const handleClickEditItem = (e) => {
+    setEdit(true);
+    setFirstInstance(false);
+    setForm({
+      date: e.date,
+      distributor: e.distributor,
+      amount: e.amount,
+      paid: e.paid,
+    });
   };
 
   return (
@@ -102,7 +134,7 @@ const Bills = () => {
             </thead>
             <tbody>
               {bills?.map((e, i) => (
-                <tr key={i}>
+                <tr key={i} onClick={() => handleClickEditItem(e)}>
                   <td>{e.date}</td>
                   <td>{e.distributor}</td>
                   <td>{e.paid}</td>
@@ -169,10 +201,14 @@ const Bills = () => {
             </div>
             <div className="form-content">
               <label htmlFor="paid">Forma de pago:</label>
-              <select name="paid" id="paid" onChange={handleChange}>
-                <option value={form.paid}>Efectivo</option>
-                <option value="Transferencia">Transferencia</option>
-              </select>
+              <input
+                onChange={handleChange}
+                type="text"
+                id="paid"
+                name="paid"
+                value={form.paid}
+                autoComplete="on"
+              />
             </div>
             <div className="error-message">
               {errors.paid && <p>{errors.paid}</p>}
@@ -184,11 +220,19 @@ const Bills = () => {
                 click={handleClickCancel}
                 text={"Cancelar"}
               />
-              <CustomButton
-                nameType={"submit"}
-                selector={"btn-green"}
-                text={"Añadir"}
-              />
+              {edit ? (
+                <CustomButton
+                  nameType={"submit"}
+                  selector={"btn-green"}
+                  text={"Actualizar"}
+                />
+              ) : (
+                <CustomButton
+                  nameType={"submit"}
+                  selector={"btn-green"}
+                  text={"Añadir gasto"}
+                />
+              )}
             </div>
           </form>
         </section>

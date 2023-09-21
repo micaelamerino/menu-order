@@ -279,7 +279,12 @@ td {
     text-align: left;
     padding: 0.5em;
 }
-
+tbody > tr {
+    cursor: pointer;
+}
+tbody > tr:hover {
+    background-color: var(--gris);
+}
 .select-table {
     display: grid;
     place-content: center;
