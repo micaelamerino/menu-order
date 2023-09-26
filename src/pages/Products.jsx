@@ -76,7 +76,7 @@ const Products = () => {
       errors.name = "✍🏼 Complete el campo";
       isError = true;
     }
-    if (value.price === 0) {
+    if (value.price.length<=0) {
       errors.price = "✍🏼 Complete el campo";
       isError = true;
     }
@@ -99,6 +99,27 @@ const Products = () => {
     });
   };
 
+  const handleClickUpdate = (e) => {
+    e.preventDefault();
+    const err = validateFields(form);
+    if (err === null) {
+      const edit = products.map((item) =>
+        item.code === form.code
+          ? {
+              code: form.code,
+              name: form.name,
+              price: form.price,
+              quantity: form.quantity,
+            }
+          : item
+      );
+      setProducts(edit);
+      setEdit(false);
+      setFirstInstance(true);
+    } else {
+      setErrors(err);
+    }
+  };
   return (
     <main className="products-section">
       <section className="list-section">
@@ -226,6 +247,7 @@ const Products = () => {
                 <CustomButton
                   nameType={"submit"}
                   selector={"btn-green"}
+                  click={handleClickUpdate}
                   text={"Actualizar"}
                 />
               ) : (

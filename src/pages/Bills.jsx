@@ -35,23 +35,9 @@ const Bills = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const searchBill = bills.find(
-      (bill) => bill.distributor === form.distributor
-    );
     const err = validateFields(form);
-    if (err === null && !searchBill) {
+    if (err === null) {
       setBills([...bills, form]);
-      setForm(initialValue);
-      setErrors({});
-    } else if (err === null && searchBill) {
-      bills.map((bill) => {
-        if (bill.distributor === form.distributor) {
-          (bill.distributor = form.distributor),
-            (bill.date = form.date),
-            (bill.amount = form.amount),
-            (bill.paid = form.paid);
-        }
-      });
       setForm(initialValue);
       setErrors({});
     } else {
@@ -97,6 +83,28 @@ const Bills = () => {
       amount: e.amount,
       paid: e.paid,
     });
+  };
+
+  const handleClickUpdate = (e) => {
+    e.preventDefault();
+    const err = validateFields(form);
+    if (err === null) {
+      const edit = bills.map((item) =>
+        item.distributor === form.distributor
+          ? {
+              date: form.date,
+              distributor: form.distributor,
+              amount: form.amount,
+              paid: form.paid,
+            }
+          : item
+      );
+      setBills(edit);
+      setEdit(false);
+      setFirstInstance(true);
+    } else {
+      setErrors(err);
+    }
   };
 
   return (
@@ -206,7 +214,8 @@ const Bills = () => {
                 type="text"
                 id="paid"
                 name="paid"
-                value={form.paid}
+                value={form.paid.slice(0, 1).toUpperCase() +
+                  form.paid.substring(1).toLowerCase()}
                 autoComplete="on"
               />
             </div>
@@ -224,6 +233,7 @@ const Bills = () => {
                 <CustomButton
                   nameType={"submit"}
                   selector={"btn-green"}
+                  click={handleClickUpdate}
                   text={"Actualizar"}
                 />
               ) : (

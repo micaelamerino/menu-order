@@ -43,38 +43,6 @@ const Sales = () => {
     setForm(initialValue);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const searchSale = sales.find(
-      (sale) =>
-        sale.startDate === form.startDate && sale.finishDate === form.finishDate
-    );
-    const err = validateFields(form);
-    if (err === null && !searchSale) {
-      setSales([...sales, form]);
-      setForm(initialValue);
-      setErrors({});
-    } else if (err === null && searchSale) {
-      sales.map((sale) => {
-        if (
-          sale.startDate === form.startDate &&
-          sale.finishDate === form.finishDate
-        ) {
-          (sale.code = form.code),
-            (sale.people = form.people),
-            (sale.startDate = form.startDate),
-            (sale.finishDate = form.finishDate),
-            (sale.paid = form.paid),
-            (sale.total = form.total);
-        }
-      });
-      setForm(initialValue);
-      setErrors({});
-    } else {
-      setErrors(err);
-    }
-  };
-
   const validateFields = (value) => {
     let errors = {};
     let isError = false;
@@ -91,7 +59,7 @@ const Sales = () => {
       errors.startDate = "✍🏼 Complete el campo";
       isError = true;
     }
-    if (value.finishDate === 0) {
+    if (value.finishDate <= 0) {
       errors.finishDate = "✍🏼 Complete el campo";
       isError = true;
     }
@@ -111,6 +79,7 @@ const Sales = () => {
   };
 
   const handleClickEdit = (sale) => {
+    setErrors({})
     setEdit(true);
     setFirstInstance(false);
     setForm({
@@ -122,6 +91,30 @@ const Sales = () => {
       total: sale.total,
     });
   };
+
+  const handleClickUpdate = (e) => {
+    e.preventDefault();
+    const err = validateFields(form);
+    if (err === null) {
+      const edit = sales.map((item) =>
+        item.startDate === form.startDate
+          ? {
+              code: form.code,
+              people: form.people,
+              startDate: form.startDate,
+              finishDate: form.finishDate,
+              paid: form.paid,
+              total: form.total
+            }
+          : item
+      );
+      setSales(edit);
+      setEdit(false);
+      setFirstInstance(true);
+    } else {
+      setErrors(err);
+    }
+  }
 
   return (
     <main className="sales-section">
@@ -188,7 +181,7 @@ const Sales = () => {
       {!firstInstance ? (
         <section className="section-form">
           <h2 className="header-form">Editar venta</h2>
-          <form onSubmit={handleSubmit} className="form-container">
+          <form className="form-container">
             <div className="form-content">
               <label htmlFor="code">Código</label>
               <input
@@ -285,6 +278,7 @@ const Sales = () => {
                 <CustomButton
                   nameType={"submit"}
                   selector={"btn-green"}
+                  click={handleClickUpdate}
                   text={"Actualizar"}
                 />
               </div>
