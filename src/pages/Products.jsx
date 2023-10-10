@@ -91,6 +91,7 @@ const Products = () => {
   const handleClickEdit = (prod) => {
     setEdit(true);
     setFirstInstance(false);
+    setErrors({})
     setForm({
       code: prod.code,
       name: prod.name,
@@ -120,6 +121,7 @@ const Products = () => {
       setErrors(err);
     }
   };
+  
   return (
     <main className="products-section">
       <section className="list-section">

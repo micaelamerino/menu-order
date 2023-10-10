@@ -63,7 +63,7 @@ const Bills = () => {
       errors.distributor = "✍🏼 Complete el campo";
       isError = true;
     }
-    if (value.amount === 0) {
+    if (value.amount <= 0) {
       errors.amount = "✍🏼 Complete el campo";
       isError = true;
     }
@@ -77,6 +77,7 @@ const Bills = () => {
   const handleClickEditItem = (e) => {
     setEdit(true);
     setFirstInstance(false);
+    setErrors({})
     setForm({
       date: e.date,
       distributor: e.distributor,

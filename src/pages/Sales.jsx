@@ -79,9 +79,9 @@ const Sales = () => {
   };
 
   const handleClickEdit = (sale) => {
-    setErrors({})
     setEdit(true);
     setFirstInstance(false);
+    setErrors({})
     setForm({
       code: sale.code,
       people: sale.people,
@@ -114,7 +114,7 @@ const Sales = () => {
     } else {
       setErrors(err);
     }
-  }
+  };
 
   return (
     <main className="sales-section">
