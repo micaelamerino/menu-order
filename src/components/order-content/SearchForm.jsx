@@ -16,7 +16,7 @@ const SearchForm = () => {
   };
 
   useEffect(() => {
-    if (search != "") {
+    if (search !== "") {
       const searchCode = products.filter((p) => p.code == search);
       const searchName = products.filter((p) =>
         p.name.toLowerCase().includes(search.toLowerCase())
