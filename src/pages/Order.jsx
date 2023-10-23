@@ -4,6 +4,7 @@ import SearchForm from "../components/order-content/SearchForm";
 import ClientOrder from "../components/order-content/ClientOrder";
 import CloseTable from "../components/order-content/CloseTable";
 import CustomSelectionSection from "../components/CustomSelectionSection";
+import { ProductContext } from "../context/ProductContext";
 
 const Order = () => {
   const tables = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -16,11 +17,14 @@ const Order = () => {
     setTotalAmount,
   } = useContext(TablesContext);
 
+  const { setFilterProducts, setSearch } = useContext(ProductContext);
   useEffect(() => {
     setFirstInstance(true);
   }, []);
 
   const handleClickTable = (e) => {
+    setSearch("");
+    setFilterProducts([]);
     setFirstInstance(false);
     const searchTable = tablesOpen.find((table) => table.code === e);
 

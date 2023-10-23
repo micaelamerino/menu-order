@@ -8,8 +8,9 @@ const SearchForm = () => {
   const { setAddProducts, orderClient, setOrderClient } =
     useContext(TablesContext);
   const { products } = useContext(ProductContext);
-  const [search, setSearch] = useState("");
-  const [filterProducts, setFilterProducts] = useState([]);
+
+  const { filterProducts, setFilterProducts, search, setSearch } =
+    useContext(ProductContext);
 
   const handleChange = (e) => {
     setSearch(e.target.value);
@@ -30,7 +31,7 @@ const SearchForm = () => {
     } else {
       setFilterProducts([]);
     }
-  }, [search, products]);
+  }, [search, products, setFilterProducts]);
 
   const handleClickAddProduct = (e) => {
     const product = { ...e };
@@ -50,6 +51,7 @@ const SearchForm = () => {
         type="text"
         placeholder="Buscar..."
         autoComplete="off"
+        value={search}
       />
       <div className="products-list">
         {filterProducts.length > 0 &&
