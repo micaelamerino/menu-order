@@ -39,7 +39,7 @@ const SearchForm = () => {
 
   return (
     <form ref={form} className="form-search">
-      <label htmlFor="search">Nombre o código del producto</label>
+      <h2>Nombre o código del producto</h2>
       <input
         id="search"
         onChange={handleChange}

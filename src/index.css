@@ -99,6 +99,7 @@ nav>a:hover {
     display: flex;
     flex-direction: column;
     position: relative;
+    width: 100%;
 }
 
 .form-search>input {
@@ -115,7 +116,7 @@ nav>a:hover {
     flex-direction: column;
     width: 400px;
     position: absolute;
-    top: 81px;
+    top: 91px;
     border-top: 1px solid black;
 }
 
@@ -140,11 +141,12 @@ nav>a:hover {
 
 .order-container {
     margin-top: 0.8em;
+    width: 100%;
 }
 
 .order-article {
     display: grid;
-    grid-template-columns: repeat(4, 150px);
+    grid-template-columns: repeat(4, auto);
     align-items: center;
     padding: 0.7em;
     background-color: #fff;
@@ -179,7 +181,7 @@ nav>a:hover {
     flex-direction: column;
     gap: 1em;
     padding: 1em;
-    width: 500px;
+    width: 80%;
 
 }
 
