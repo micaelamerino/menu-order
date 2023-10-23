@@ -19,7 +19,7 @@ const ClientOrder = () => {
 
   const handleClickDeleteProduct = (e) => {
     const searchTable = tablesOpen.find((table) => table.code === numberTable);
-    const searchOrder = orderClient.find((order) => order.code === e.code);
+    const searchOrder = orderClient.find((order) => order.id === e.id);
     const newOrder = orderClient.filter((order) => order != searchOrder);
 
     const total = newOrder.reduce((acc, el) => acc + parseInt(el.price), 0);

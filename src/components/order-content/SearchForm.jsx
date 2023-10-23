@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { TablesContext } from "../../context/TablesContext";
 import { ProductContext } from "../../context/ProductContext";
+import { v4 as uuidv4 } from "uuid";
 
 const SearchForm = () => {
   const form = useRef();
@@ -32,7 +33,10 @@ const SearchForm = () => {
   }, [search, products]);
 
   const handleClickAddProduct = (e) => {
-    setOrderClient([...orderClient, e]);
+    const product = { ...e };
+    const newID = { id: uuidv4() };
+    const newProduct = Object.assign(product, newID);
+    setOrderClient([...orderClient, newProduct]);
     setSearch("");
     form.current.reset();
   };
