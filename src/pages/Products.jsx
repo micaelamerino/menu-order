@@ -3,6 +3,7 @@ import { ProductContext } from "../context/ProductContext";
 import useForm from "../hooks/useForm";
 import CustomButton from "../components/CustomButton";
 import CustomSelectionSection from "../components/CustomSelectionSection";
+import ProductsTable from "../components/products-content/ProductsTable";
 
 const Products = () => {
   const { products, setProducts } = useContext(ProductContext);
@@ -68,7 +69,7 @@ const Products = () => {
     let errors = {};
     let isError = false;
 
-    if (value.code === 0) {
+    if (value.code === 0 || value.code === "") {
       errors.code = "✍🏼 Complete el campo";
       isError = true;
     }
@@ -76,7 +77,7 @@ const Products = () => {
       errors.name = "✍🏼 Complete el campo";
       isError = true;
     }
-    if (value.price.length<=0) {
+    if (value.price === 0) {
       errors.price = "✍🏼 Complete el campo";
       isError = true;
     }
@@ -145,28 +146,7 @@ const Products = () => {
           </div>
         </div>
         {products.length > 0 ? (
-          <table>
-            <thead>
-              <tr>
-                <th>Código</th>
-                <th>Nombre</th>
-                <th>Cantidad</th>
-                <th>Precio</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products?.map((prod, index) => (
-                <tr key={index} onClick={() => handleClickEdit(prod)}>
-                  <td>{prod.code}</td>
-                  <td>{prod.name}</td>
-                  <td>{prod.quantity}</td>
-                  <td>
-                    <b>$ {prod.price}</b>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <ProductsTable products={products} handleClickEdit={handleClickEdit}/>
         ) : (
           <p>Aún no hay productos registrados</p>
         )}

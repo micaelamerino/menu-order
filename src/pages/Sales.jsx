@@ -3,6 +3,7 @@ import { TablesContext } from "../context/TablesContext";
 import CustomSelectionSection from "../components/CustomSelectionSection";
 import CustomButton from "../components/CustomButton";
 import useForm from "../hooks/useForm";
+import SalesTable from "../components/sales-content/SalesTable";
 
 const Sales = () => {
   const { sales, setSales } = useContext(TablesContext);
@@ -81,7 +82,7 @@ const Sales = () => {
   const handleClickEdit = (sale) => {
     setEdit(true);
     setFirstInstance(false);
-    setErrors({})
+    setErrors({});
     setForm({
       code: sale.code,
       people: sale.people,
@@ -104,7 +105,7 @@ const Sales = () => {
               startDate: form.startDate,
               finishDate: form.finishDate,
               paid: form.paid,
-              total: form.total
+              total: form.total,
             }
           : item
       );
@@ -147,32 +148,7 @@ const Sales = () => {
                 Total: <b>$ {totalAmount}</b>{" "}
               </p>
             </div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Mesa</th>
-                  <th>Personas</th>
-                  <th>Apertura</th>
-                  <th>Cierre</th>
-                  <th>Forma de pago</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                {sales?.map((sale, index) => (
-                  <tr key={index} onClick={() => handleClickEdit(sale)}>
-                    <td>{sale.code}</td>
-                    <td>{sale.people}</td>
-                    <td>{sale.startDate}</td>
-                    <td>{sale.finishDate}</td>
-                    <td>{sale.paid}</td>
-                    <td>
-                      <b>$ {sale.total}</b>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <SalesTable sales={sales} handleClickEdit={handleClickEdit} />
           </>
         ) : (
           <p>Aún no hay ventas registradas</p>
@@ -246,7 +222,10 @@ const Sales = () => {
                 type="text"
                 id="paid"
                 name="paid"
-                value={form.paid}
+                value={
+                  form.paid.slice(0, 1).toUpperCase() +
+                  form.paid.substring(1).toLowerCase()
+                }
                 autoComplete="on"
               />
             </div>

@@ -3,6 +3,7 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 import useForm from "../hooks/useForm";
 import CustomButton from "../components/CustomButton";
 import CustomSelectionSection from "../components/CustomSelectionSection";
+import BillsTable from "../components/bills-content/BillsTable";
 
 const Bills = () => {
   const [bills, setBills] = useLocalStorage("bills", []);
@@ -132,28 +133,7 @@ const Bills = () => {
         </div>
 
         {bills.length > 0 ? (
-          <table>
-            <thead>
-              <tr>
-                <th>Fecha</th>
-                <th>Proveedor</th>
-                <th>Forma de pago</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              {bills?.map((e, i) => (
-                <tr key={i} onClick={() => handleClickEditItem(e)}>
-                  <td>{e.date}</td>
-                  <td>{e.distributor}</td>
-                  <td>{e.paid}</td>
-                  <td>
-                    <b>$ {e.amount}</b>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <BillsTable bills={bills} handleClickEditItem={handleClickEditItem}/> 
         ) : (
           <p>Aún no hay gastos registrados</p>
         )}
