@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { TablesContext } from "../../context/TablesContext";
 import CustomButton from "../CustomButton";
+import { v4 as uuidv4 } from "uuid";
 
 const CloseTable = () => {
   const {
@@ -38,6 +39,7 @@ const CloseTable = () => {
           table.finishDate = today;
           table.people = peopleQuantity;
           table.paid = paidMode;
+          table.id =  uuidv4()
         }
       });
 

@@ -4,6 +4,7 @@ import useForm from "../hooks/useForm";
 import CustomButton from "../components/CustomButton";
 import CustomSelectionSection from "../components/CustomSelectionSection";
 import BillsTable from "../components/bills-content/BillsTable";
+import BillsFormInputs from "../components/bills-content/BillsFormInputs";
 
 const Bills = () => {
   const [bills, setBills] = useLocalStorage("bills", []);
@@ -47,9 +48,7 @@ const Bills = () => {
   };
 
   const handleClickCancel = () => {
-    setForm(initialValue);
-    setErrors({});
-    setEdit(false);
+    setFirstInstance(true);
   };
 
   const validateFields = (value) => {
@@ -78,7 +77,7 @@ const Bills = () => {
   const handleClickEditItem = (e) => {
     setEdit(true);
     setFirstInstance(false);
-    setErrors({})
+    setErrors({});
     setForm({
       date: e.date,
       distributor: e.distributor,
@@ -109,6 +108,16 @@ const Bills = () => {
     }
   };
 
+  const handleDeleteBill = () => {
+    const searchItem = bills.find(
+      (item) => item.distributor === form.distributor
+    );
+    const newArray = bills.filter((item) => item !== searchItem);
+
+    setBills(newArray);
+    setFirstInstance(true);
+  };
+
   return (
     <main className="bills-section">
       <section className="list-section">
@@ -133,7 +142,7 @@ const Bills = () => {
         </div>
 
         {bills.length > 0 ? (
-          <BillsTable bills={bills} handleClickEditItem={handleClickEditItem}/> 
+          <BillsTable bills={bills} handleClickEditItem={handleClickEditItem} />
         ) : (
           <p>Aún no hay gastos registrados</p>
         )}
@@ -142,68 +151,18 @@ const Bills = () => {
         <section className="section-form">
           <h2 className="header-form">Nuevo gasto</h2>
           <form onSubmit={handleSubmit} className="form-container">
-            <div className="form-content">
-              <label htmlFor="date">Fecha</label>
-              <input
-                onChange={handleChange}
-                id="date"
-                name="date"
-                type="date"
-                value={form.date}
-                autoComplete="off"
-              />
-            </div>
-            <div className="error-message">
-              {errors.date && <p>{errors.date}</p>}
-            </div>
-            <div className="form-content">
-              <label htmlFor="distributor">Proveedor</label>
-              <input
-                onChange={handleChange}
-                id="distributor"
-                name="distributor"
-                type="text"
-                value={
-                  form.distributor.slice(0, 1).toUpperCase() +
-                  form.distributor.substring(1).toLowerCase()
-                }
-                autoComplete="off"
-              />
-            </div>
-            <div className="error-message">
-              {errors.distributor && <p>{errors.distributor}</p>}
-            </div>
-            <div className="form-content">
-              <label htmlFor="amount">Monto</label>
-              <input
-                onChange={handleChange}
-                id="amount"
-                name="amount"
-                type="number"
-                value={form.amount}
-                min={0}
-                autoComplete="off"
-              />
-            </div>
-            <div className="error-message">
-              {errors.amount && <p>{errors.amount}</p>}
-            </div>
-            <div className="form-content">
-              <label htmlFor="paid">Forma de pago:</label>
-              <input
-                onChange={handleChange}
-                type="text"
-                id="paid"
-                name="paid"
-                value={form.paid.slice(0, 1).toUpperCase() +
-                  form.paid.substring(1).toLowerCase()}
-                autoComplete="on"
-              />
-            </div>
-            <div className="error-message">
-              {errors.paid && <p>{errors.paid}</p>}
-            </div>
+            <BillsFormInputs
+              form={form}
+              errors={errors}
+              handleChange={handleChange}
+            />
             <div className="buttons-container">
+              <CustomButton
+                nameType={"button"}
+                selector={"btn-red"}
+                click={handleDeleteBill}
+                text={"Eliminar registro"}
+              />
               <CustomButton
                 nameType={"button"}
                 selector={"btn-gray"}

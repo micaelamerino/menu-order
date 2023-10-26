@@ -258,6 +258,17 @@ button {
     color: #fff;
 }
 
+.btn-red {
+    border: 1px solid #da2f2f;
+    color: #da2f2f;
+    transition: .3s;
+}
+
+.btn-red:hover {
+    background-color: #da2f2f;
+    color: white;
+}
+
 .btn-gray:hover,
 .btn-green:hover {
     border: 1px solid #000;

@@ -4,6 +4,7 @@ import CustomSelectionSection from "../components/CustomSelectionSection";
 import CustomButton from "../components/CustomButton";
 import useForm from "../hooks/useForm";
 import SalesTable from "../components/sales-content/SalesTable";
+import SalesFormInputs from "../components/sales-content/SalesFormInputs";
 
 const Sales = () => {
   const { sales, setSales } = useContext(TablesContext);
@@ -80,6 +81,7 @@ const Sales = () => {
   };
 
   const handleClickEdit = (sale) => {
+    console.log(sale);
     setEdit(true);
     setFirstInstance(false);
     setErrors({});
@@ -90,6 +92,7 @@ const Sales = () => {
       finishDate: sale.finishDate,
       paid: sale.paid,
       total: sale.total,
+      id: sale.id,
     });
   };
 
@@ -117,6 +120,13 @@ const Sales = () => {
     }
   };
 
+  const handleDeleteSale = () => {
+    const searchItem = sales.find((item) => item.id === form.id);
+    const newArray = sales.filter((item) => item !== searchItem);
+
+    setSales(newArray);
+    setFirstInstance(true);
+  };
   return (
     <main className="sales-section">
       <section className="list-section">
@@ -158,96 +168,15 @@ const Sales = () => {
         <section className="section-form">
           <h2 className="header-form">Editar venta</h2>
           <form className="form-container">
-            <div className="form-content">
-              <label htmlFor="code">Código</label>
-              <input
-                onChange={handleChange}
-                id="code"
-                name="code"
-                type="number"
-                value={form.code}
-                autoComplete="off"
-              />
-            </div>
-            <div className="error-message">
-              {errors.code && <p>{errors.code}</p>}
-            </div>
-            <div className="form-content">
-              <label htmlFor="people">Personas</label>
-              <input
-                onChange={handleChange}
-                id="people"
-                name="people"
-                type="number"
-                value={form.people}
-                autoComplete="off"
-              />
-            </div>
-            <div className="error-message">
-              {errors.people && <p>{errors.people}</p>}
-            </div>
-            <div className="form-content">
-              <label htmlFor="start">Inicio</label>
-              <input
-                onChange={handleChange}
-                id="start"
-                name="start"
-                type="text"
-                value={form.startDate}
-                autoComplete="off"
-              />
-            </div>
-            <div className="error-message">
-              {errors.startDate && <p>{errors.startDate}</p>}
-            </div>
-            <div className="form-content">
-              <label htmlFor="finish">Cierre</label>
-              <input
-                onChange={handleChange}
-                id="finish"
-                name="finish"
-                type="text"
-                value={form.finishDate}
-                min={0}
-                autoComplete="off"
-              />
-            </div>
-            <div className="error-message">
-              {errors.finishDate && <p>{errors.finishDate}</p>}
-            </div>
-            <div className="form-content">
-              <label htmlFor="paid">Forma de pago:</label>
-              <input
-                onChange={handleChange}
-                type="text"
-                id="paid"
-                name="paid"
-                value={
-                  form.paid.slice(0, 1).toUpperCase() +
-                  form.paid.substring(1).toLowerCase()
-                }
-                autoComplete="on"
-              />
-            </div>
-            <div className="error-message">
-              {errors.paid && <p>{errors.paid}</p>}
-            </div>
-            <div className="form-content">
-              <label htmlFor="total">Total:</label>
-              <input
-                onChange={handleChange}
-                type="number"
-                id="total"
-                name="total"
-                value={form.total}
-                autoComplete="off"
-              />
-            </div>
-            <div className="error-message">
-              {errors.total && <p>{errors.total}</p>}
-            </div>
+            <SalesFormInputs form={form} errors={errors} handleChange={handleChange}/>
             {edit && (
               <div className="buttons-container">
+                <CustomButton
+                  nameType={"button"}
+                  selector={"btn-red"}
+                  click={handleDeleteSale}
+                  text={"Eliminar registro"}
+                />
                 <CustomButton
                   nameType={"button"}
                   selector={"btn-gray"}

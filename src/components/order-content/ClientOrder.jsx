@@ -70,6 +70,7 @@ const ClientOrder = () => {
           finishDate: "",
           people: peopleQuantity,
           paid: "",
+          id:""
         },
       ]);
     } else {

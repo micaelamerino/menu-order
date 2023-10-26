@@ -5,6 +5,7 @@ import ClientOrder from "../components/order-content/ClientOrder";
 import CloseTable from "../components/order-content/CloseTable";
 import CustomSelectionSection from "../components/CustomSelectionSection";
 import { ProductContext } from "../context/ProductContext";
+import CustomButton from "../components/CustomButton";
 
 const Order = () => {
   const tables = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -44,23 +45,27 @@ const Order = () => {
       <section className="tables-section">
         {tables.map((table) =>
           tablesOpen.find((e) => e.code === table) ? (
-            <button
-              onClick={() => handleClickTable(table)}
-              key={table}
-              className="table"
-              style={{ backgroundColor: "#fd9800" }}
-            >
-              {table}
-            </button>
+            <>
+              <CustomButton
+                key={table}
+                nameType={"button"}
+                selector={"table"}
+                click={() => handleClickTable(table)}
+                text={table}
+                style={{ backgroundColor: "#fd9800" }}
+              />
+            </>
           ) : (
-            <button
-              onClick={() => handleClickTable(table)}
-              key={table}
-              className="table"
-              style={{ backgroundColor: "#24b624" }}
-            >
-              {table}
-            </button>
+            <>
+              <CustomButton
+                key={table}
+                nameType={"button"}
+                selector={"table"}
+                click={() => handleClickTable(table)}
+                text={table}
+                style={{ backgroundColor: "#24b624" }}
+              />
+            </>
           )
         )}
       </section>
