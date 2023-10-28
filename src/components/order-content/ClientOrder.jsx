@@ -43,8 +43,12 @@ const ClientOrder = () => {
 
   const handleClickCancel = () => {
     const searchTable = tablesOpen.find((table) => table.code === numberTable);
-    setOrderClient(searchTable.order);
-    setAddProducts(false);
+    if (searchTable) {
+      setOrderClient(searchTable.order);
+      setAddProducts(false);
+    } else {
+      setOrderClient([]);
+    }
   };
 
   const handleClickSave = () => {
@@ -53,10 +57,7 @@ const ClientOrder = () => {
 
     const searchTable = tablesOpen.find((table) => table.code === numberTable);
 
-    const total = orderClient.reduce(
-      (acc, el) => acc + parseInt(el.price),
-      0
-    );
+    const total = orderClient.reduce((acc, el) => acc + parseInt(el.price), 0);
     setTotalAmount(total);
 
     if (!searchTable) {
@@ -70,7 +71,7 @@ const ClientOrder = () => {
           finishDate: "",
           people: peopleQuantity,
           paid: "",
-          id:""
+          id: "",
         },
       ]);
     } else {
@@ -102,11 +103,11 @@ const ClientOrder = () => {
                 </p>
                 <p>$ {e.price}</p>
                 <CustomButton
-                nameType={"button"}
-                selector={"btn-delete"}
-                click={() => handleClickDeleteProduct(e)}
-                text={"Eliminar"}
-              />
+                  nameType={"button"}
+                  selector={"btn-delete"}
+                  click={() => handleClickDeleteProduct(e)}
+                  text={"Eliminar"}
+                />
               </article>
             ))}
           </div>

@@ -18,10 +18,14 @@ const Bills = () => {
   const { form, setForm, handleChange } = useForm(initialValue);
   const [errors, setErrors] = useState({});
   const [edit, setEdit] = useState(false);
+  const [totalAmount, setTotalAmount] = useState(null);
 
   useEffect(() => {
     setFirstInstance(true);
-  }, []);
+
+    const totalAmount = bills.reduce((acc, el) => acc + parseInt(el.amount), 0);
+    setTotalAmount(totalAmount);
+  }, [bills]);
 
   const handleClickAddBill = () => {
     setFirstInstance(false);
@@ -142,9 +146,21 @@ const Bills = () => {
         </div>
 
         {bills.length > 0 ? (
-          <BillsTable bills={bills} handleClickEditItem={handleClickEditItem} />
+          <>
+            <div>
+              <p>
+                Total de gastos: <b>$ {totalAmount}</b>
+              </p>
+            </div>
+            <BillsTable
+              bills={bills}
+              handleClickEditItem={handleClickEditItem}
+            />
+          </>
         ) : (
-          <p>Aún no hay gastos registrados</p>
+          <div>
+            <p>Aún no hay gastos registrados</p>
+          </div>
         )}
       </section>
       {!firstInstance ? (
@@ -157,12 +173,14 @@ const Bills = () => {
               handleChange={handleChange}
             />
             <div className="buttons-container">
-              <CustomButton
-                nameType={"button"}
-                selector={"btn-red"}
-                click={handleDeleteBill}
-                text={"Eliminar registro"}
-              />
+              {edit ? (
+                <CustomButton
+                  nameType={"button"}
+                  selector={"btn-red"}
+                  click={handleDeleteBill}
+                  text={"Eliminar registro"}
+                />
+              ) : null}
               <CustomButton
                 nameType={"button"}
                 selector={"btn-gray"}

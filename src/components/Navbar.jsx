@@ -9,7 +9,7 @@ const Navbar = () => {
     <>
       <nav>
         <div className="logo">
-          <h1>MENU ORDER</h1>
+          <h1>A LA ORDEN</h1>
         </div>
         <NavLink to={"/pedidos"}>
           <abbr title="Órdenes">

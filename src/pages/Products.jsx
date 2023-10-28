@@ -36,21 +36,19 @@ const Products = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const searchProduct = products.find(
-      (prod) => prod.code === form.code
-    );
+    const searchProduct = products.find((prod) => prod.code === form.code);
     const err = validateFields(form);
     if (err === null && !searchProduct) {
       setProducts([...products, form]);
       setForm(initialValue);
       setErrors({});
-    } else if (err === null && searchProduct){
+    } else if (err === null && searchProduct) {
       products.map((prod) => {
         if (prod.code === form.code) {
           (prod.code = form.code),
-          (prod.name = form.name),
-          (prod.price = form.price),
-          (prod.quantity = form.quantity);
+            (prod.name = form.name),
+            (prod.price = form.price),
+            (prod.quantity = form.quantity);
         }
       });
       setForm(initialValue);
@@ -61,9 +59,7 @@ const Products = () => {
   };
 
   const handleClickCancel = () => {
-    setForm(initialValue);
-    setErrors({});
-    setEdit(false);
+    setFirstInstance(true);
   };
 
   const validateFields = (value) => {
@@ -93,7 +89,7 @@ const Products = () => {
   const handleClickEdit = (prod) => {
     setEdit(true);
     setFirstInstance(false);
-    setErrors({})
+    setErrors({});
     setForm({
       code: prod.code,
       name: prod.name,
@@ -124,13 +120,13 @@ const Products = () => {
     }
   };
   const handleDeleteProduct = () => {
-    const searchItem = products.find((item) => item.code === form.code)
-    const newArray = products.filter((item) => item !== searchItem)
-    
-    setProducts(newArray) 
+    const searchItem = products.find((item) => item.code === form.code);
+    const newArray = products.filter((item) => item !== searchItem);
+
+    setProducts(newArray);
     setFirstInstance(true);
-  }
-  
+  };
+
   return (
     <main className="products-section">
       <section className="list-section">
@@ -154,7 +150,10 @@ const Products = () => {
           </div>
         </div>
         {products.length > 0 ? (
-          <ProductsTable products={products} handleClickEdit={handleClickEdit}/>
+          <ProductsTable
+            products={products}
+            handleClickEdit={handleClickEdit}
+          />
         ) : (
           <p>Aún no hay productos registrados</p>
         )}
@@ -163,14 +162,20 @@ const Products = () => {
         <section className="section-form">
           <h2 className="header-form">Ingresar producto</h2>
           <form onSubmit={handleSubmit} className="form-container">
-            <ProductsFormInputs form={form} errors={errors} handleChange={handleChange}/>
+            <ProductsFormInputs
+              form={form}
+              errors={errors}
+              handleChange={handleChange}
+            />
             <div className="buttons-container">
-            <CustomButton
-                nameType={"button"}
-                selector={"btn-red"}
-                click={handleDeleteProduct}
-                text={"Eliminar registro"}
-              />
+              {edit ? (
+                <CustomButton
+                  nameType={"button"}
+                  selector={"btn-red"}
+                  click={handleDeleteProduct}
+                  text={"Eliminar registro"}
+                />
+              ) : null}
               <CustomButton
                 nameType={"button"}
                 selector={"btn-gray"}

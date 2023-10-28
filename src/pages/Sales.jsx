@@ -5,14 +5,16 @@ import CustomButton from "../components/CustomButton";
 import useForm from "../hooks/useForm";
 import SalesTable from "../components/sales-content/SalesTable";
 import SalesFormInputs from "../components/sales-content/SalesFormInputs";
+import SalesMetrics from "../components/sales-content/SalesMetrics";
 
 const Sales = () => {
   const { sales, setSales } = useContext(TablesContext);
   const [firstInstance, setFirstInstance] = useState(false);
   const [totalAmount, setTotalAmount] = useState(0);
-  const [totalPeople, setTotalPeople] = useState(0);
+  const [totalPerson, setTotalPerson] = useState(0);
   const [averagePerson, setAveragePerson] = useState(0);
   const [averageSale, setAverageSale] = useState(0);
+
   const initialValue = {
     code: 0,
     people: "",
@@ -27,16 +29,17 @@ const Sales = () => {
 
   useEffect(() => {
     setFirstInstance(true);
+    const totalA = sales.reduce((acc, el) => acc + el.total, 0);
+    setTotalAmount(totalA);
 
-    const totalAmount = sales.reduce((acc, el) => acc + el.total, 0);
-    setTotalAmount(totalAmount);
+    const totalP = sales.reduce((acc, el) => acc + parseInt(el.people), 0);
+    setTotalPerson(totalP);
 
-    const totalPeople = sales.reduce((acc, el) => acc + parseInt(el.people), 0);
-    setTotalPeople(totalPeople);
+    const averageP = parseInt(totalA / totalP);
+    setAveragePerson(averageP);
 
-    setAveragePerson(parseInt(totalAmount / totalPeople));
-
-    setAverageSale(parseInt(totalAmount / sales.length));
+    const averageS = parseInt(totalA / sales.length);
+    setAverageSale(averageS);
   }, [sales]);
 
   const handleClickReset = () => {
@@ -81,7 +84,6 @@ const Sales = () => {
   };
 
   const handleClickEdit = (sale) => {
-    console.log(sale);
     setEdit(true);
     setFirstInstance(false);
     setErrors({});
@@ -144,31 +146,29 @@ const Sales = () => {
 
         {sales.length > 0 ? (
           <>
-            <div className="container-data-sales">
-              <p>
-                Personas: <b>{totalPeople}</b>
-              </p>
-              <p>
-                Promedio por persona: <b>$ {averagePerson}</b>
-              </p>
-              <p>
-                Promedio por venta: <b>$ {averageSale}</b>
-              </p>
-              <p>
-                Total: <b>$ {totalAmount}</b>{" "}
-              </p>
-            </div>
+            <SalesMetrics
+              totalAmount={totalAmount}
+              totalPeople={totalPerson}
+              averagePerson={averagePerson}
+              averageSale={averageSale}
+            />
             <SalesTable sales={sales} handleClickEdit={handleClickEdit} />
           </>
         ) : (
-          <p>Aún no hay ventas registradas</p>
+          <div>
+            <p>Aún no hay ventas registradas</p>
+          </div>
         )}
       </section>
       {!firstInstance ? (
         <section className="section-form">
           <h2 className="header-form">Editar venta</h2>
           <form className="form-container">
-            <SalesFormInputs form={form} errors={errors} handleChange={handleChange}/>
+            <SalesFormInputs
+              form={form}
+              errors={errors}
+              handleChange={handleChange}
+            />
             {edit && (
               <div className="buttons-container">
                 <CustomButton

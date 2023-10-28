@@ -45,31 +45,22 @@ const Order = () => {
       <section className="tables-section">
         {tables.map((table) =>
           tablesOpen.find((e) => e.code === table) ? (
-            <>
-              <CustomButton
-                key={table}
-                nameType={"button"}
-                selector={"table"}
-                click={() => handleClickTable(table)}
-                text={table}
-                style={{ backgroundColor: "#fd9800" }}
-              />
-            </>
+            <button 
+            key={table} 
+            className="table" 
+            type="button"
+            onClick={() => handleClickTable(table)} 
+            style={{ backgroundColor: "#fd9800" }}>{table}</button>
           ) : (
-            <>
-              <CustomButton
-                key={table}
-                nameType={"button"}
-                selector={"table"}
-                click={() => handleClickTable(table)}
-                text={table}
-                style={{ backgroundColor: "#24b624" }}
-              />
-            </>
+            <button 
+            key={table} 
+            className="table" 
+            type="button"
+            onClick={() => handleClickTable(table)} 
+            style={{ backgroundColor: "#24b624" }}>{table}</button>
           )
         )}
       </section>
-
       <>
         {!firstInstance ? (
           <section className="section-form">
